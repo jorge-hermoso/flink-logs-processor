@@ -40,38 +40,62 @@ mvn test
 ```bash
 mvn clean package
 ```
-This creates a fat JAR in the `target` directory with all dependencies included.
-
-### Run the Application Locally
- 
-You can run the application using either of these methods:
- 
-#### Method 1: Direct classpath (recommended for reliability)
-```bash
-# First copy dependencies if needed
-mvn dependency:copy-dependencies
- 
-# Then run with the correct classpath
-java -cp "target/classes:target/dependency/*" cloud.hermoso.flink_logs_processor.DataStreamJob
-```
- 
-#### Method 2: Using Maven exec plugin
-```bash
-mvn exec:java
-```
-> **Note**: The exec plugin may have classpath issues with provided scope dependencies in some environments. If you encounter problems, use Method 1.
- 
-> **Important Notes**:
-> - Since Flink dependencies are marked as `provided` scope (not included in the shaded JAR for AWS deployment), you need to ensure dependencies are available when running locally.
-> - For AWS deployment, use the shaded JAR as Flink runtime provides the dependencies:
->   ```bash
->   java -cp target/keyed-rcf-example_2.3.0-1.0.jar cloud.hermoso.flink_logs_processor.DataStreamJob
->   ```
+This creates the deployment JAR (`target/keyed-rcf-example_2.3.0-1.0.jar`) via the Maven Shade
+plugin. It bundles the application and its dependencies, but *not* the Flink runtime — those
+dependencies are `provided` scope, because the Flink cluster supplies them.
 
 ### Skip Tests During Build
 ```bash
 mvn clean package -DskipTests
 ```
+
+### Run the Application Locally
+
+```bash
+mvn compile exec:exec
+```
+
+No local Flink cluster or Flink installation is needed: the job detects a `LocalStreamEnvironment`
+(see `DataStreamJob.isLocal()`), starts an embedded mini-cluster, sets parallelism to 1 and
+checkpointing to 30s, and reads its configuration from
+`src/main/resources/flink-application-properties-dev.json` instead of the AWS runtime properties.
+
+The exec plugin is preconfigured in `pom.xml`; two details make this work with `provided` scope:
+
+- **`<classpathScope>compile</classpathScope>`** — Maven's *compile* classpath includes
+  `provided` dependencies, so the Flink jars are on the classpath for the local run while still
+  being excluded from the packaged JAR. No scope changes and no separate profile are required.
+  (Note that `runtime`-scope dependencies are *not* on this classpath.)
+- **`exec:exec`, not `exec:java`** — `exec:exec` forks a real JVM. `exec:java` runs in the Maven
+  JVM, and Flink's JobMaster cannot load user classes through the classloader it sets up; the job
+  fails at submission with `ClassNotFoundException: org.apache.flink.api.common.ExecutionConfig`.
+
+#### AWS credentials
+
+The Kinesis sink needs credentials even when the job runs locally, otherwise the sink task fails
+on startup with `SdkClientException: Unable to load credentials from any of the providers in the
+chain` and the job enters a restart loop. Export a profile before running:
+
+```bash
+export AWS_PROFILE=<profile-with-static-keys>
+# or, for an SSO profile, materialise the session as environment variables:
+eval "$(aws configure export-credentials --profile <sso-profile> --format env)"
+```
+
+The output stream configured in `flink-application-properties-dev.json` (`OutputStream0`) must
+exist in the configured region, and the credentials need write access to it.
+
+#### Alternative: plain `java`
+
+Useful when you want to pass JVM flags or attach a debugger:
+
+```bash
+mvn compile dependency:build-classpath -Dmdep.outputFile=target/cp.txt -Dmdep.includeScope=compile
+java -cp "target/classes:$(cat target/cp.txt)" cloud.hermoso.flink_logs_processor.DataStreamJob
+```
+
+> Running the shaded JAR directly (`java -jar target/keyed-rcf-example_2.3.0-1.0.jar`) does **not**
+> work — it deliberately contains no Flink runtime. Deploy that JAR to a Flink cluster instead.
 
 ## Configuration
 
@@ -85,8 +109,20 @@ See the `src/main/resources/flink-application-properties-dev.json` file for an e
 
 This project uses Apache Flink 2.3.0 with Java 21.
 
+Two dependency details follow from the Flink 2.x upgrade:
+
+- **Kinesis connector**: `flink-connector-aws-kinesis-streams` 6.0.1-2.0. The older bundled
+  `flink-connector-kinesis` artifact stops at Flink 1.20 and fails at runtime under Flink 2.x with
+  `NoClassDefFoundError: org/apache/flink/api/connector/sink2/StatefulSink`. The sink class name and
+  package are unchanged, so no application code is affected. Unlike the old artifact this one does
+  not shade the AWS SDK, which is why the packaged JAR is noticeably larger.
+- **`commons-lang` 2.6** is declared explicitly at compile scope. `aws-kinesisanalytics-runtime`
+  needs it when parsing the local properties file but never declares it; Flink 1.x used to pull it
+  in transitively and Flink 2.x does not, so without it local runs fail with
+  `NoClassDefFoundError: org/apache/commons/lang/StringUtils`.
+
 ## Notes
 
 - The application is designed to run on Amazon Managed Service for Apache Flink (formerly Kinesis Data Analytics)
 - All Flink dependencies are marked as `provided` scope since they are supplied by the runtime environment
-- The Maven Shade plugin is configured to create an executable JAR with all necessary dependencies excluded those provided by Flink runtime
+- The Maven Shade plugin creates a JAR containing the application and its dependencies, excluding those provided by the Flink runtime

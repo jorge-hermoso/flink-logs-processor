@@ -20,8 +20,8 @@ under the License.
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>software.amazon.flink.example</groupId>
-	<artifactId>keyed-rcf-example</artifactId>
+	<groupId>cloud.hermoso.flink_logs_processor</groupId>
+	<artifactId>flink_logs_processor</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
@@ -34,7 +34,7 @@ under the License.
 		<maven.compiler.source>${target.java.version}</maven.compiler.source>
 		<maven.compiler.target>${target.java.version}</maven.compiler.target>
 		<kda.runtime.version>1.2.0</kda.runtime.version>
-		<aws.connector.version>5.0.0-1.20</aws.connector.version>
+		<aws.connector.version>6.0.1-2.0</aws.connector.version>
 		<randomcutforest.version>4.4.0</randomcutforest.version>
 		<lombok.verion>1.18.48</lombok.verion>
 		<log4j.version>2.26.1</log4j.version>
@@ -71,6 +71,15 @@ under the License.
 		</dependency>
 
 
+		<!-- aws-kinesisanalytics-runtime needs commons-lang 2.x at runtime but does not declare it.
+		     Flink 1.x used to drag it in transitively; Flink 2.x does not, so declare it explicitly.
+		     Compile scope on purpose: it must be on the local run classpath AND in the shaded JAR. -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
 		<!-- RCF implementation -->
 		<dependency>
 			<groupId>software.amazon.randomcutforest</groupId>
@@ -87,7 +96,7 @@ under the License.
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kinesis</artifactId>
+			<artifactId>flink-connector-aws-kinesis-streams</artifactId>
 			<version>${aws.connector.version}</version>
 		</dependency>
 		<dependency>
@@ -147,12 +156,24 @@ under the License.
 				</configuration>
 			</plugin>
 
-			<!-- Exec Plugin -->
+			<!-- Exec Plugin: run the job locally with `mvn compile exec:exec`.
+			     Flink dependencies stay `provided` (so they are not packaged into the JAR), but the
+			     `compile` classpath scope includes them, so they are available for the local run.
+			     Uses exec:exec (forked JVM) rather than exec:java, because Flink's JobMaster cannot
+			     load user classes through the in-JVM classloader exec:java sets up. -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
+					<executable>java</executable>
+					<classpathScope>compile</classpathScope>
+					<arguments>
+						<argument>-classpath</argument>
+						<classpath/>
+						<argument>cloud.hermoso.flink_logs_processor.DataStreamJob</argument>
+					</arguments>
+					<!-- Used by the exec:java goal only -->
 					<mainClass>cloud.hermoso.flink_logs_processor.DataStreamJob</mainClass>
 				</configuration>
 			</plugin>
@@ -228,20 +249,12 @@ under the License.
 										<ignore/>
 									</action>
 								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-compiler-plugin</artifactId>
-										<versionRange>[3.1,)</versionRange>
-										<goals>
-											<goal>testCompile</goal>
-											<goal>compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore/>
-									</action>
-								</pluginExecution>
+								<!-- Do NOT add an <ignore/> mapping for maven-compiler-plugin here.
+								     m2e derives the Java nature, the source folders and the compiler
+								     level from the compile/testCompile executions; ignoring them makes
+								     the IDE import this as a plain Maven project with no .classpath,
+								     which silently kills go-to-definition and all diagnostics.
+								     The upstream keyed-rcf-example sample ships that mapping. -->
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
