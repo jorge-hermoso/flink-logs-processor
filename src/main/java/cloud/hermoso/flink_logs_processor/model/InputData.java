@@ -1,4 +1,4 @@
-package software.amazon.flink.example.rcf.model;
+package cloud.hermoso.flink_logs_processor.model;
 
 import lombok.*;
 
@@ -7,9 +7,11 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class OutputData {
+public class InputData {
+
     private long timestamp;
     private String key;
     private float[] values;
-    private double score;
 }
+
+

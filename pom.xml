@@ -25,19 +25,19 @@ under the License.
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>Keyed RCF example</name>
+	<name>Production Logs Anomaly Detector</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<flink.version>1.20.0</flink.version>
-		<target.java.version>11</target.java.version>
+		<flink.version>2.3.0</flink.version>
+		<target.java.version>21</target.java.version>
 		<maven.compiler.source>${target.java.version}</maven.compiler.source>
 		<maven.compiler.target>${target.java.version}</maven.compiler.target>
 		<kda.runtime.version>1.2.0</kda.runtime.version>
 		<aws.connector.version>5.0.0-1.20</aws.connector.version>
-		<randomcutforest.version>4.1.0</randomcutforest.version>
-		<lombok.verion>1.18.34</lombok.verion>
-		<log4j.version>2.23.1</log4j.version>
+		<randomcutforest.version>4.4.0</randomcutforest.version>
+		<lombok.verion>1.18.48</lombok.verion>
+		<log4j.version>2.26.1</log4j.version>
 	</properties>
 
 	<dependencies>
@@ -147,6 +147,16 @@ under the License.
 				</configuration>
 			</plugin>
 
+			<!-- Exec Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<mainClass>cloud.hermoso.flink_logs_processor.DataStreamJob</mainClass>
+				</configuration>
+			</plugin>
+
 			<!-- We use the maven-shade plugin to create a fat jar that contains all necessary dependencies. -->
 			<!-- Change the value of <mainClass>...</mainClass> if your program entry point changes. -->
 			<plugin>
@@ -185,7 +195,7 @@ under the License.
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>software.amazon.flink.example.rcf.DataStreamJob</mainClass>
+									<mainClass>cloud.hermoso.flink_logs_processor.DataStreamJob</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

@@ -1,8 +1,8 @@
-package software.amazon.flink.example.rcf;
+package cloud.hermoso.flink_logs_processor;
 
-import software.amazon.flink.example.rcf.model.InputData;
-import software.amazon.flink.example.rcf.model.OutputData;
-import software.amazon.flink.example.rcf.operator.RcfResultMapper;
+import cloud.hermoso.flink_logs_processor.model.InputData;
+import cloud.hermoso.flink_logs_processor.model.OutputData;
+import cloud.hermoso.flink_logs_processor.operator.RcfResultMapper;
 
 import java.util.Arrays;
 

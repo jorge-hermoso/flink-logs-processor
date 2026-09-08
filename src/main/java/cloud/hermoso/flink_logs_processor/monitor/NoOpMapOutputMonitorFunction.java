@@ -1,9 +1,9 @@
-package software.amazon.flink.example.rcf.monitor;
+package cloud.hermoso.flink_logs_processor.monitor;
 
 import org.apache.flink.api.common.functions.OpenContext;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.slf4j.Logger;
-import software.amazon.flink.example.rcf.model.OutputData;
+import cloud.hermoso.flink_logs_processor.model.OutputData;
 import org.apache.flink.metrics.Counter;
 
 /**

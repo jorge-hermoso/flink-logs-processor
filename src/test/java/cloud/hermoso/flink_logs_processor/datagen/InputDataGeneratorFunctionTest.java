@@ -1,8 +1,8 @@
-package software.amazon.flink.example.rcf.datagen;
+package cloud.hermoso.flink_logs_processor.datagen;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
-import software.amazon.flink.example.rcf.model.InputData;
+import cloud.hermoso.flink_logs_processor.model.InputData;
 
 @Disabled
 public class InputDataGeneratorFunctionTest {

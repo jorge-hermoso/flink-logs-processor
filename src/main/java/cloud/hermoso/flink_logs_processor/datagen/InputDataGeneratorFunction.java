@@ -1,10 +1,10 @@
-package software.amazon.flink.example.rcf.datagen;
+package cloud.hermoso.flink_logs_processor.datagen;
 
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.flink.connector.datagen.source.GeneratorFunction;
 import org.slf4j.Logger;
-import software.amazon.flink.example.rcf.model.InputData;
+import cloud.hermoso.flink_logs_processor.model.InputData;
 
 import java.time.Instant;
 

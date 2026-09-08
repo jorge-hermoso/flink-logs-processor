@@ -1,14 +1,14 @@
-package software.amazon.flink.example.rcf.operator;
+package cloud.hermoso.flink_logs_processor.operator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.flink.util.Preconditions;
-import software.amazon.flink.example.rcf.ApplicationConfigUtils;
+import cloud.hermoso.flink_logs_processor.ApplicationConfigUtils;
 
 import java.util.Map;
 import java.util.Properties;
 
-import static software.amazon.flink.example.rcf.operator.KeyRandomCutForestOperatorBuilder.PropertiesNames.MODEL_STATE_SAVE_INTERVAL_MS;
-import static software.amazon.flink.example.rcf.operator.KeyRandomCutForestOperatorBuilder.PropertiesNames.MODEL_STATE_SAVE_JITTER_MS;
+import static cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperatorBuilder.PropertiesNames.MODEL_STATE_SAVE_INTERVAL_MS;
+import static cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperatorBuilder.PropertiesNames.MODEL_STATE_SAVE_JITTER_MS;
 
 public class KeyRandomCutForestOperatorBuilder<IN, OUT> {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(KeyRandomCutForestOperatorBuilder.class);

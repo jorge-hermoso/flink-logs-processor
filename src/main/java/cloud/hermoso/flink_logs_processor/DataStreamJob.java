@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package software.amazon.flink.example.rcf;
+package cloud.hermoso.flink_logs_processor;
 
 import com.amazonaws.services.kinesisanalytics.runtime.KinesisAnalyticsRuntime;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -27,12 +27,12 @@ import org.apache.flink.connector.kinesis.sink.KinesisStreamsSink;
 import org.apache.flink.formats.json.JsonSerializationSchema;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import software.amazon.flink.example.rcf.datagen.InputDataGeneratorFunction;
-import software.amazon.flink.example.rcf.model.InputData;
-import software.amazon.flink.example.rcf.model.OutputData;
-import software.amazon.flink.example.rcf.monitor.NoOpMapOutputMonitorFunction;
-import software.amazon.flink.example.rcf.operator.KeyRandomCutForestOperator;
-import software.amazon.flink.example.rcf.operator.KeyRandomCutForestOperatorBuilder;
+import cloud.hermoso.flink_logs_processor.datagen.InputDataGeneratorFunction;
+import cloud.hermoso.flink_logs_processor.model.InputData;
+import cloud.hermoso.flink_logs_processor.model.OutputData;
+import cloud.hermoso.flink_logs_processor.monitor.NoOpMapOutputMonitorFunction;
+import cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperator;
+import cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperatorBuilder;
 
 import java.io.IOException;
 import java.util.Map;

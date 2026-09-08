@@ -1,4 +1,4 @@
-package software.amazon.flink.example.rcf;
+package cloud.hermoso.flink_logs_processor;
 
 import org.apache.flink.util.Preconditions;
 import org.apache.flink.util.StringUtils;

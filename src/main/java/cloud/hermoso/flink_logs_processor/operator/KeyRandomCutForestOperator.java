@@ -1,4 +1,4 @@
-package software.amazon.flink.example.rcf.operator;
+package cloud.hermoso.flink_logs_processor.operator;
 
 import com.amazon.randomcutforest.RandomCutForest;
 import com.amazon.randomcutforest.state.RandomCutForestMapper;
@@ -6,8 +6,11 @@ import com.amazon.randomcutforest.state.RandomCutForestState;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
-import org.apache.flink.configuration.Configuration;
+import org.apache.flink.api.common.functions.OpenContext;
 import org.apache.flink.streaming.api.TimerService;
+import cloud.hermoso.flink_logs_processor.operator.RcfInputMapper;
+import cloud.hermoso.flink_logs_processor.operator.RcfResultMapper;
+import cloud.hermoso.flink_logs_processor.operator.RcfModelsConfig;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 import org.apache.flink.util.Preconditions;
@@ -85,8 +88,8 @@ public class KeyRandomCutForestOperator<IN, OUT> extends KeyedProcessFunction<St
      * It is used to initialize the Flink state handles and any transient field.
      */
     @Override
-    public void open(Configuration parameters) throws Exception {
-        super.open(parameters);
+    public void open(OpenContext openContext) throws Exception {
+        super.open(openContext);
 
         // Initialize an empty map of cached RCF models. The actual models will be initialized lazily
         rcfModel = new ConcurrentHashMap<>();

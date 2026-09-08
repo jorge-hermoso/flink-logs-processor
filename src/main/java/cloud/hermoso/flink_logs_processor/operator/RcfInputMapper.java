@@ -1,4 +1,4 @@
-package software.amazon.flink.example.rcf.operator;
+package cloud.hermoso.flink_logs_processor.operator;
 
 import org.apache.flink.api.common.functions.Function;
 
