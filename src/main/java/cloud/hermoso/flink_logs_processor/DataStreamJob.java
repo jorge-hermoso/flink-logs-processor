@@ -1,149 +1,122 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package cloud.hermoso.flink_logs_processor;
 
+import cloud.hermoso.flink_logs_processor.model.Alert;
+import cloud.hermoso.flink_logs_processor.model.DeadLetter;
+import cloud.hermoso.flink_logs_processor.model.RawLog;
+import cloud.hermoso.flink_logs_processor.sink.Sinks;
+import cloud.hermoso.flink_logs_processor.source.RawLogDeserializationSchema;
 import com.amazonaws.services.kinesisanalytics.runtime.KinesisAnalyticsRuntime;
-import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.api.connector.source.util.ratelimit.RateLimiterStrategy;
-import org.apache.flink.connector.datagen.source.DataGeneratorSource;
-import org.apache.flink.connector.kinesis.sink.KinesisStreamsSink;
-import org.apache.flink.formats.json.JsonSerializationSchema;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.connector.kinesis.source.KinesisStreamsSource;
+import org.apache.flink.connector.kinesis.source.config.KinesisSourceConfigOptions;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import cloud.hermoso.flink_logs_processor.datagen.InputDataGeneratorFunction;
-import cloud.hermoso.flink_logs_processor.model.InputData;
-import cloud.hermoso.flink_logs_processor.model.OutputData;
-import cloud.hermoso.flink_logs_processor.monitor.NoOpMapOutputMonitorFunction;
-import cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperator;
-import cloud.hermoso.flink_logs_processor.operator.KeyRandomCutForestOperatorBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
+/**
+ * Production-line log anomaly detector.
+ * <p>
+ * Reads unstructured log lines from a Kinesis stream, scores each station's behaviour with a
+ * Random Cut Forest, and writes scores to DynamoDB, alerts to a Kinesis stream and unprocessable
+ * records to a dead-letter Kinesis stream. See docs/ARCHITECTURE.md.
+ */
 public class DataStreamJob {
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DataStreamJob.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataStreamJob.class);
 
-    // Name of the local JSON resource with the application properties in the same format as they are received from the Amazon Managed Service for Apache Flink runtime
+    /**
+     * Local resource with the application properties, in the format Amazon Managed Service for
+     * Apache Flink provides them at runtime. Override with -Dapp.properties.resource=...
+     */
     private static final String LOCAL_APPLICATION_PROPERTIES_RESOURCE = "flink-application-properties-dev.json";
 
     private static boolean isLocal(StreamExecutionEnvironment env) {
         return env instanceof LocalStreamEnvironment;
     }
 
-    /**
-     * Load application properties from Amazon Managed Service for Apache Flink runtime or from a local resource, when the environment is local
-     */
     private static Map<String, Properties> loadApplicationProperties(StreamExecutionEnvironment env) throws IOException {
         if (isLocal(env)) {
-            LOG.info("Loading application properties from '{}'", LOCAL_APPLICATION_PROPERTIES_RESOURCE);
-            return KinesisAnalyticsRuntime.getApplicationProperties(
-                    DataStreamJob.class.getClassLoader()
-                            .getResource(LOCAL_APPLICATION_PROPERTIES_RESOURCE).getPath());
-        } else {
-            LOG.info("Loading application properties from Amazon Managed Service for Apache Flink");
-            return KinesisAnalyticsRuntime.getApplicationProperties();
+            String resource = System.getProperty("app.properties.resource", LOCAL_APPLICATION_PROPERTIES_RESOURCE);
+            LOG.info("Loading application properties from '{}'", resource);
+            URL url = DataStreamJob.class.getClassLoader().getResource(resource);
+            if (url == null) {
+                throw new IOException("Application properties resource '" + resource + "' not found on the classpath");
+            }
+            return KinesisAnalyticsRuntime.getApplicationProperties(url.getPath());
         }
+        LOG.info("Loading application properties from Amazon Managed Service for Apache Flink");
+        return KinesisAnalyticsRuntime.getApplicationProperties();
     }
 
+    private static KinesisStreamsSource<RawLog> buildSource(Properties properties) {
+        String streamArn = ApplicationConfigUtils.parseMandatoryString(properties, "stream.arn");
+        String initialPosition = ApplicationConfigUtils.parseString(properties, "source.init.position", "LATEST");
+        LOG.info("Reading logs from '{}', initial position {}", streamArn, initialPosition);
 
+        // aws.* properties (region, endpoint, credentials provider...) are passed to the client
+        Configuration sourceConfig = new Configuration();
+        for (String name : properties.stringPropertyNames()) {
+            if (name.startsWith("aws.")) {
+                sourceConfig.setString(name, properties.getProperty(name));
+            }
+        }
+        // Only applies when the job starts without state; otherwise it resumes from the checkpoint
+        sourceConfig.set(KinesisSourceConfigOptions.STREAM_INITIAL_POSITION,
+                KinesisSourceConfigOptions.InitialPosition.valueOf(initialPosition.toUpperCase(Locale.ROOT)));
 
-    // Data generator, generating synthetic data
-    private static DataGeneratorSource<InputData> buildSource(Properties sourceProperties) {
-        double recordsPerSecond = ApplicationConfigUtils.parseMandatoryDouble(sourceProperties, "records.per.second");
-        return new DataGeneratorSource<>(
-                new InputDataGeneratorFunction(),
-                Long.MAX_VALUE,
-                RateLimiterStrategy.perSecond(recordsPerSecond),
-                TypeInformation.of(InputData.class));
-    }
-
-    // The actual keyed RCF operator
-    private static KeyRandomCutForestOperator<InputData, OutputData> buildRcfOperator(Map<String, Properties> applicationProperties) {
-        return new KeyRandomCutForestOperatorBuilder<InputData,OutputData>()
-                .parseOperatorProperties(applicationProperties.get("RcfOperator") )
-                .setInputMapper(new InputDataMapper())
-                .setResultMapper(new ResultMapper())
-                .setDefaultModelParameters(applicationProperties, "ModelParameters-")
-                .setAllSpecificModelParametersProperties(applicationProperties, "ModelParameters-")
+        return KinesisStreamsSource.<RawLog>builder()
+                .setStreamArn(streamArn)
+                .setSourceConfig(sourceConfig)
+                .setDeserializationSchema(new RawLogDeserializationSchema())
                 .build();
     }
-
-    // This pass-through Map operator is used to expose custom metrics
-    private static NoOpMapOutputMonitorFunction buildOutputMonitorFunction(Properties outputMonitorProperties) {
-        float anomalyThreshold = ApplicationConfigUtils.parseMandatoryFloat(outputMonitorProperties, "anomaly.threshold");
-        return new NoOpMapOutputMonitorFunction(anomalyThreshold, "kinesisAnalytics"); // This group makes Managed Flink to export the metric to CloudWatch Metrics
-    }
-
-    private static KinesisStreamsSink<OutputData> buildKinesisSink(Properties kinesisSinkProperties) {
-        String outputStreamName = ApplicationConfigUtils.parseMandatoryString(kinesisSinkProperties, "stream.name");
-        LOG.info("Initialize Kinesis sink to stream '{}'", outputStreamName);
-
-        return KinesisStreamsSink.<OutputData>builder()
-                .setStreamName(outputStreamName)
-                // Any other Kinesis sink properties except stream name is passed to the sink builder
-                .setKinesisClientProperties(kinesisSinkProperties)
-                .setSerializationSchema(new JsonSerializationSchema<>())
-                .setPartitionKeyGenerator(OutputData::getKey)
-                .build();
-    }
-
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
-        // Load application parameters (runtime configuration)
         Map<String, Properties> applicationProperties = loadApplicationProperties(env);
 
-        // Local dev specific settings
         if (isLocal(env)) {
-            // Checkpointing and parallelism are set by Amazon Managed Service for Apache Flink when running on AWS
-            env.enableCheckpointing(30000);
+            // On AWS, checkpointing and parallelism are owned by the Managed Flink application configuration
+            env.enableCheckpointing(30_000);
             env.setParallelism(1);
-            env.getCheckpointConfig().setMaxConcurrentCheckpoints(1);
         }
 
-        // Initialize the data generator source
-        DataGeneratorSource<InputData> source = buildSource(applicationProperties.get("DataGen"));
+        // Fail fast, before any resource is touched, when the configuration is wrong
+        LogAnomalyPipeline.Config config = LogAnomalyPipeline.Config.fromApplicationProperties(applicationProperties);
+        Properties sourceProperties = ApplicationConfigUtils.mandatoryGroup(applicationProperties, "Source");
+        Properties alertProperties = ApplicationConfigUtils.mandatoryGroup(applicationProperties, "AlertStream");
+        Properties deadLetterProperties = ApplicationConfigUtils.mandatoryGroup(applicationProperties, "DeadLetterStream");
+        Properties scoresProperties = ApplicationConfigUtils.mandatoryGroup(applicationProperties, "ScoresTable");
 
-        // Initialize the RCF operator
-        KeyRandomCutForestOperator<InputData, OutputData> rcfOperator = buildRcfOperator(applicationProperties);
+        DataStream<RawLog> rawLogs = env
+                // The source is generic: its output type cannot be inferred and must be given
+                // Event time and watermarks are assigned in the source: per shard, not per reader
+                .fromSource(buildSource(sourceProperties), LogAnomalyPipeline.watermarkStrategy(config), "Kinesis logs",
+                        TypeInformation.of(RawLog.class))
+                .uid("kinesis-source");
 
-        // Initialize no-op record-emitting output monitor
-        NoOpMapOutputMonitorFunction outputMonitorFunction = buildOutputMonitorFunction(applicationProperties.get("OutputMonitor"));
+        LogAnomalyPipeline.Outputs outputs = LogAnomalyPipeline.build(rawLogs, config);
 
-        // Initialize Kinesis Streams sink
-        KinesisStreamsSink<OutputData> kinesisSink = buildKinesisSink(applicationProperties.get("OutputStream0"));
+        outputs.scores
+                .sinkTo(Sinks.scoresTable(scoresProperties))
+                .uid("scores-sink").name("Scores to DynamoDB");
+        outputs.alerts
+                .sinkTo(Sinks.<Alert>kinesisJson(alertProperties, Alert::getStationId))
+                .uid("alerts-sink").name("Alerts to Kinesis");
+        outputs.deadLetters
+                // Dead letters have no natural key: spread them over the shards
+                .sinkTo(Sinks.<DeadLetter>kinesisJson(deadLetterProperties, letter -> UUID.randomUUID().toString()))
+                .uid("dead-letter-sink").name("Dead letters to Kinesis");
 
-        // Defines the flow
-        env.fromSource(source, WatermarkStrategy.noWatermarks(), "Data generator").uid("data-gen")
-                .keyBy(InputData::getKey)
-                // RCF operator
-                .process(rcfOperator).returns(OutputData.class).uid("rcf").name("RCF")
-                // Pass-through map counting records and anomalies
-                .map(outputMonitorFunction).uid("output-monitor").name("Output monitor")
-//                .print()
-                // Sink results to Kinesis
-                .sinkTo(kinesisSink);
-
-        // Execute program, beginning computation.
-        env.execute("Keyed RCF");
+        env.execute("Production logs anomaly detector");
     }
 }

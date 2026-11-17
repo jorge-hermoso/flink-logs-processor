@@ -1,49 +1,145 @@
 [
   {
-    "PropertyGroupId": "DataGen",
+    "PropertyGroupId": "Source",
     "PropertyMap": {
-      "records.per.second": "100"
+      "stream.arn": "arn:aws:kinesis:eu-west-1:000000000000:stream/plant-logs",
+      "source.init.position": "TRIM_HORIZON",
+      "aws.region": "eu-west-1",
+      "aws.endpoint": "http://localhost:4566",
+      "aws.credentials.provider": "BASIC",
+      "aws.credentials.provider.basic.accesskeyid": "test",
+      "aws.credentials.provider.basic.secretkey": "test",
+      "aws.http.protocol.version": "HTTP1_1",
+      "aws.trust.all.certificates": "true"
     }
   },
   {
-    "PropertyGroupId": "OutputMonitor",
+    "PropertyGroupId": "Parser",
     "PropertyMap": {
-      "anomaly.threshold": "1.1"
+      "max.line.length": "16384",
+      "_comment": "LocalStack's Kinesis reports arrival timestamps ~90 min in the past, which would make every line look like it comes from a clock running fast. Real Kinesis: keep the default 300000.",
+      "max.future.skew.ms": "31536000000",
+      "dead.letter.unattributed": "false"
+    }
+  },
+  {
+    "PropertyGroupId": "Features",
+    "PropertyMap": {
+      "window.size.ms": "10000",
+      "max.out.of.orderness.ms": "10000",
+      "idle.timeout.ms": "60000"
+    }
+  },
+  {
+    "PropertyGroupId": "Station-MIXER",
+    "PropertyMap": {
+      "metric.viscosity": "visc",
+      "metric.slurry_temp": "temp",
+      "metric.agitator_rpm": "agitator_rpm"
+    }
+  },
+  {
+    "PropertyGroupId": "Station-EXTRUDER",
+    "PropertyMap": {
+      "metric.melt_pressure": "melt pressure",
+      "metric.screw_torque": "screw torque",
+      "metric.barrel_temp": "barrel temp"
+    }
+  },
+  {
+    "PropertyGroupId": "Station-KILN",
+    "PropertyMap": {
+      "metric.zone_temp": "zone temp reading",
+      "metric.o2": "o2",
+      "metric.belt_speed": "belt"
+    }
+  },
+  {
+    "PropertyGroupId": "Station-PRESS",
+    "PropertyMap": {
+      "metric.peak_force": "peak_force",
+      "metric.cycle_time": "cycle_time",
+      "metric.hydraulic_pressure": "hyd_press"
+    }
+  },
+  {
+    "PropertyGroupId": "Station-PACKER",
+    "PropertyMap": {
+      "metric.rate": "rate",
+      "metric.rejects": "rejects",
+      "metric.vacuum": "vacuum"
     }
   },
   {
     "PropertyGroupId": "RcfOperator",
     "PropertyMap": {
-      "model.state.save.interval.ms": "30000",
-      "model.state.save.jitter.ms": "1000"
-    }
-  },
-  {
-    "PropertyGroupId": "OutputStream0",
-    "PropertyMap": {
-      "aws.region": "eu-west-1",
-      "stream.name": "RcfOutput"
+      "model.cache.max.size": "1000",
+      "model.state.ttl.hours": "0"
     }
   },
   {
     "PropertyGroupId": "ModelParameters-DEFAULT",
     "PropertyMap": {
-      "dimensions": "3",
-      "shingle.size": "1",
-      "sample.size": "256",
+      "shingle.size": "6",
       "number.of.trees": "50",
-      "output.after": "512"
+      "sample.size": "256",
+      "output.after": "64",
+      "anomaly.rate": "0.005"
     }
   },
   {
-    "PropertyGroupId": "ModelParameters-K1",
+    "PropertyGroupId": "Alerting",
     "PropertyMap": {
-      "dimensions": "3",
-      "shingle.size": "1",
-      "sample.size": "1024",
-      "number.of.trees": "50",
-      "output.after": "1024"
+      "min.grade": "0.5",
+      "cooldown.ms": "300000",
+      "warmup.windows": "60"
+    }
+  },
+  {
+    "PropertyGroupId": "Rules",
+    "PropertyMap": {
+      "silence.after.ms": "60000",
+      "stuck.windows": "12"
+    }
+  },
+  {
+    "PropertyGroupId": "AlertStream",
+    "PropertyMap": {
+      "stream.name": "plant-anomalies",
+      "aws.region": "eu-west-1",
+      "aws.endpoint": "http://localhost:4566",
+      "aws.credentials.provider": "BASIC",
+      "aws.credentials.provider.basic.accesskeyid": "test",
+      "aws.credentials.provider.basic.secretkey": "test",
+      "aws.http.protocol.version": "HTTP1_1",
+      "aws.trust.all.certificates": "true"
+    }
+  },
+  {
+    "PropertyGroupId": "DeadLetterStream",
+    "PropertyMap": {
+      "stream.name": "plant-dead-letters",
+      "aws.region": "eu-west-1",
+      "aws.endpoint": "http://localhost:4566",
+      "aws.credentials.provider": "BASIC",
+      "aws.credentials.provider.basic.accesskeyid": "test",
+      "aws.credentials.provider.basic.secretkey": "test",
+      "aws.http.protocol.version": "HTTP1_1",
+      "aws.trust.all.certificates": "true"
+    }
+  },
+  {
+    "PropertyGroupId": "ScoresTable",
+    "PropertyMap": {
+      "table.name": "plant-scores",
+      "ttl.days": "30",
+      "aws.region": "eu-west-1",
+      "aws.endpoint": "http://localhost:4566",
+      "aws.credentials.provider": "BASIC",
+      "aws.credentials.provider.basic.accesskeyid": "test",
+      "aws.credentials.provider.basic.secretkey": "test",
+      "aws.http.protocol.version": "HTTP1_1",
+      "aws.trust.all.certificates": "true"
     }
   }
 ]
-
