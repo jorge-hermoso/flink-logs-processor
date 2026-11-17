@@ -1,56 +1,60 @@
 package cloud.hermoso.flink_logs_processor.operator;
 
+import cloud.hermoso.flink_logs_processor.ApplicationConfigUtils;
 import lombok.Getter;
 import lombok.ToString;
-import org.slf4j.Logger;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
- * Configuration of multiple RCF Models, by model key.
+ * Model parameters by model key. Built from the property groups {@code ModelParameters-DEFAULT}
+ * and {@code ModelParameters-<KEY>}, where the key is either a station id ({@code KILN-01}) or a
+ * station type ({@code KILN}). A specific group only needs the properties it overrides.
  */
 @ToString
 public class RcfModelsConfig implements Serializable {
-    private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(RcfModelsConfig.class);
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Map of model parameters, by model key
-     */
-    @Getter
-    private final Map<String, RcfModelParams> modelParamsMap = new HashMap<>();
+    public static final String GROUP_PREFIX = "ModelParameters-";
+    public static final String DEFAULT_KEY = "DEFAULT";
 
-    /**
-     * Default model parameters, returned if no parameter is defined for a specific key
-     */
     @Getter
     private final RcfModelParams defaultModelParams;
+    private final Map<String, RcfModelParams> overrides = new HashMap<>();
 
-    /**
-     * Initialize config with default model parameters
-     */
-    RcfModelsConfig(RcfModelParams defaultModelParams) {
+    public RcfModelsConfig(RcfModelParams defaultModelParams) {
         this.defaultModelParams = defaultModelParams;
     }
 
-    /**
-     * Add model parameters for a given model key
-     */
-    void addModelParams(String modelKey, RcfModelParams modelParams) {
-        modelParamsMap.put(modelKey, modelParams);
-    }
-
-    /**
-     * Return the model parameters for a given model key
-     * falling back to the Default Model Parameters, if no parameters are defined for the given key
-     */
-    public RcfModelParams getModelParams(String modelKey) {
-        if (!modelParamsMap.containsKey(modelKey)) {
-            LOG.debug("No parameters defined for modelKye: {}. Using default parameters", modelKey);
-            return defaultModelParams;
+    public static RcfModelsConfig fromApplicationProperties(Map<String, Properties> applicationProperties) {
+        RcfModelParams defaults = RcfModelParams.fromProperties(
+                ApplicationConfigUtils.optionalGroup(applicationProperties, GROUP_PREFIX + DEFAULT_KEY),
+                RcfModelParams.defaults());
+        RcfModelsConfig config = new RcfModelsConfig(defaults);
+        for (Map.Entry<String, Properties> group : applicationProperties.entrySet()) {
+            String groupId = group.getKey();
+            if (groupId.startsWith(GROUP_PREFIX) && !groupId.equals(GROUP_PREFIX + DEFAULT_KEY)) {
+                config.addOverride(groupId.substring(GROUP_PREFIX.length()), RcfModelParams.fromProperties(group.getValue(), defaults));
+            }
         }
-        return modelParamsMap.get(modelKey);
+        return config;
     }
 
+    public RcfModelsConfig addOverride(String key, RcfModelParams params) {
+        overrides.put(key, params);
+        return this;
+    }
+
+    /** Most specific parameters for a station: by station id, then by station type, then the defaults. */
+    public RcfModelParams getModelParams(String stationId) {
+        RcfModelParams params = overrides.get(stationId);
+        if (params == null) {
+            int dash = stationId.indexOf('-');
+            params = dash > 0 ? overrides.get(stationId.substring(0, dash)) : null;
+        }
+        return params != null ? params : defaultModelParams;
+    }
 }

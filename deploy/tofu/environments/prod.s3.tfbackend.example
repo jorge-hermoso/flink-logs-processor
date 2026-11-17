@@ -1,0 +1,7 @@
+# Copy to prod.s3.tfbackend, then: tofu init -backend-config=environments/prod.s3.tfbackend
+# and uncomment `backend "s3" {}` in versions.tf.
+bucket       = "my-tofu-state-bucket"
+key          = "plant-anomaly/prod.tfstate"
+region       = "eu-west-1"
+encrypt      = true
+use_lockfile = true

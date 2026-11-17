@@ -1,128 +1,92 @@
 # Production Logs Anomaly Detector
 
-This application is a portfolio project designed to be used later by the production-line-ml infrastructure repository. It is a clone and enhancement of the [AWS Flink Keyed Random Cut Forest Example](https://github.com/aws-samples/flink-keyed-random-cut-forest-example).
+A streaming anomaly detector for production-line logs, built on Apache Flink 2.3 and run on
+Amazon Managed Service for Apache Flink. It reads free-text logs from many station types,
+learns what normal looks like for each station, and raises explained alerts when a station
+misbehaves. It needs no labelled data and no per-format parsing code.
 
-## Project Overview
-
-This Flink-based application implements an anomaly detection system for production line monitoring. It consumes log entries from a Kinesis stream, applies the Random Cut Forest (RCF) algorithm to detect anomalies, and triggers appropriate responses:
-
-- **Anomaly Detection**: Uses Random Cut Forest algorithm to identify outliers in multi-dimensional log data
-- **Alerting**: Sends notifications via Amazon SNS when anomalies are detected
-- **Metrics**: Creates real-time metrics stored in a DynamoDB sink for dashboarding and historical analysis
-- **Scalability**: Built on Apache Flink for fault-tolerant, distributed stream processing
-
-## Package Structure
-
-The application is organized under the `cloud.hermoso.flink_logs_processor` package:
+It started as a clone of the
+[AWS Flink Keyed Random Cut Forest example](https://github.com/aws-samples/flink-keyed-random-cut-forest-example)
+and is a portfolio project meant to be used by the production-line-ml infrastructure repository.
 
 ```
-cloud.hermoso.flink_logs_processor
-├── model                 # Data models (InputData, OutputData)
-├── operator              # RCF operator implementation
-├── datagen               # Data generation functions (for testing)
-├── monitor               # Monitoring and metrics functions
-└── DataStreamJob.java    # Main application entry point
+log lines ─► Kinesis ─► Flink: parse ─► 10 s windows per station ─► Random Cut Forest ─┬─► alerts ─► SNS
+                               │                                     + rules            ├─► scores ─► DynamoDB
+                               └──────────────── dead letters ◄──────────────────────────┘
 ```
 
-## Maven Commands
+## What it does
 
-### Compile the Application
-```bash
-mvn clean compile
-```
+* **Reads any log layout.** Each station type only declares which numbers to read and the
+  label in front of them (`zone temp reading`, `o2`, ...). Timestamps (epoch, ISO-8601, syslog),
+  severities and station ids are found wherever they are in the line.
+* **Learns each station separately** with a Thresholded Random Cut Forest. It needs no training
+  set, adapts to slow process changes, and explains alerts:
+  `KILN-01 anomaly (grade 1.00): warnings=5 (expected 0), zone_temp=829.46 (expected 839.85)`.
+* **Catches what a model cannot:** rules for silent stations and frozen sensors.
+* **Alerts sparingly:** minimum grade, warm-up grace, cool-down that still lets a worse
+  anomaly through.
+* **Keeps going:** bad input goes to a dead-letter stream instead of failing the job. Model
+  state is exact and versioned, so trained models survive failures, deployments and upgrades.
+  Watermarks are tracked per shard, and outputs are idempotent.
 
-### Run Unit Tests
-```bash
-mvn test
-```
+Detection on synthetic benchmarks: 89 % of 57 injected incidents found, about one false alert
+per station every 3 hours ([details](docs/DETECTION_QUALITY.md)).
 
-### Package the Application
-```bash
-mvn clean package
-```
-This creates the deployment JAR (`target/keyed-rcf-example_2.3.0-1.0.jar`) via the Maven Shade
-plugin. It bundles the application and its dependencies, but *not* the Flink runtime — those
-dependencies are `provided` scope, because the Flink cluster supplies them.
+## Repository
 
-### Skip Tests During Build
-```bash
-mvn clean package -DskipTests
-```
+| Path | What |
+|---|---|
+| `src/` | The Flink job (Java 17, Maven). |
+| `log-generator/` | **Separate app**: synthetic logs from a fictional plant, with labelled anomalies, plus a detection evaluator ([README](log-generator/README.md)). |
+| `deploy/tofu/` | OpenTofu deployment: streams, table, Flink application, IAM, alerting, alarms, dashboard, optional generator on Fargate. |
+| `local/` | LocalStack setup and an end-to-end check. |
+| `docs/` | Documentation, below. |
 
-### Run the Application Locally
+## Documentation
 
-```bash
-mvn compile exec:exec
-```
+| Document | For |
+|---|---|
+| [Architecture](docs/ARCHITECTURE.md) | How it works and why; the resilience design. |
+| [Configuration](docs/CONFIGURATION.md) | Every property: station profiles, model, alerting, rules. |
+| [Deployment](docs/DEPLOYMENT.md) | Deploying, updating, rolling back with OpenTofu. |
+| [Operations](docs/OPERATIONS.md) | Metrics, alarms and what to do about each. |
+| [Local development](docs/LOCAL_DEVELOPMENT.md) | Building, testing, running against LocalStack. |
+| [Detection quality](docs/DETECTION_QUALITY.md) | Benchmark results and how to measure after a change. |
+| [Plan and tasks](docs/TASKS.md) | Review findings, completed work, prioritised backlog. |
 
-No local Flink cluster or Flink installation is needed: the job detects a `LocalStreamEnvironment`
-(see `DataStreamJob.isLocal()`), starts an embedded mini-cluster, sets parallelism to 1 and
-checkpointing to 30s, and reads its configuration from
-`src/main/resources/flink-application-properties-dev.json` instead of the AWS runtime properties.
-
-The exec plugin is preconfigured in `pom.xml`; two details make this work with `provided` scope:
-
-- **`<classpathScope>compile</classpathScope>`** — Maven's *compile* classpath includes
-  `provided` dependencies, so the Flink jars are on the classpath for the local run while still
-  being excluded from the packaged JAR. No scope changes and no separate profile are required.
-  (Note that `runtime`-scope dependencies are *not* on this classpath.)
-- **`exec:exec`, not `exec:java`** — `exec:exec` forks a real JVM. `exec:java` runs in the Maven
-  JVM, and Flink's JobMaster cannot load user classes through the classloader it sets up; the job
-  fails at submission with `ClassNotFoundException: org.apache.flink.api.common.ExecutionConfig`.
-
-#### AWS credentials
-
-The Kinesis sink needs credentials even when the job runs locally, otherwise the sink task fails
-on startup with `SdkClientException: Unable to load credentials from any of the providers in the
-chain` and the job enters a restart loop. Export a profile before running:
+## Quick start
 
 ```bash
-export AWS_PROFILE=<profile-with-static-keys>
-# or, for an SSO profile, materialise the session as environment variables:
-eval "$(aws configure export-credentials --profile <sso-profile> --format env)"
+mvn clean package                                    # JDK 17: build and test the job
+cd log-generator && python3 -m unittest discover -s tests && cd ..
+
+# run everything locally
+docker compose -f local/docker-compose.yml up -d --wait
+mvn compile exec:exec &                              # the job, on an embedded Flink cluster
+cd log-generator && pip install '.[kinesis]' && AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test \
+  loggen --sink kinesis --stream plant-logs --region eu-west-1 --endpoint-url http://localhost:4566 \
+         --backfill 1800 --speed 10
+
+# or check the whole path end to end
+local/e2e.sh
+
+# deploy
+cd deploy/tofu && tofu init && tofu apply -var-file=environments/dev.tfvars
 ```
 
-The output stream configured in `flink-application-properties-dev.json` (`OutputStream0`) must
-exist in the configured region, and the credentials need write access to it.
+## Build notes
 
-#### Alternative: plain `java`
-
-Useful when you want to pass JVM flags or attach a debugger:
-
-```bash
-mvn compile dependency:build-classpath -Dmdep.outputFile=target/cp.txt -Dmdep.includeScope=compile
-java -cp "target/classes:$(cat target/cp.txt)" cloud.hermoso.flink_logs_processor.DataStreamJob
-```
-
-> Running the shaded JAR directly (`java -jar target/keyed-rcf-example_2.3.0-1.0.jar`) does **not**
-> work — it deliberately contains no Flink runtime. Deploy that JAR to a Flink cluster instead.
-
-## Configuration
-
-The application expects application properties to be provided either:
-1. From Amazon Managed Service for Apache Flink runtime (when deployed to AWS)
-2. From a local JSON file (`flink-application-properties-dev.json`) for local development
-
-See the `src/main/resources/flink-application-properties-dev.json` file for an example configuration.
-
-## Flink Version
-
-This project uses Apache Flink 2.3.0 with Java 21.
-
-Two dependency details follow from the Flink 2.x upgrade:
-
-- **Kinesis connector**: `flink-connector-aws-kinesis-streams` 6.0.1-2.0. The older bundled
-  `flink-connector-kinesis` artifact stops at Flink 1.20 and fails at runtime under Flink 2.x with
-  `NoClassDefFoundError: org/apache/flink/api/connector/sink2/StatefulSink`. The sink class name and
-  package are unchanged, so no application code is affected. Unlike the old artifact this one does
-  not shade the AWS SDK, which is why the packaged JAR is noticeably larger.
-- **`commons-lang` 2.6** is declared explicitly at compile scope. `aws-kinesisanalytics-runtime`
-  needs it when parsing the local properties file but never declares it; Flink 1.x used to pull it
-  in transitively and Flink 2.x does not, so without it local runs fail with
-  `NoClassDefFoundError: org/apache/commons/lang/StringUtils`.
-
-## Notes
-
-- The application is designed to run on Amazon Managed Service for Apache Flink (formerly Kinesis Data Analytics)
-- All Flink dependencies are marked as `provided` scope since they are supplied by the runtime environment
-- The Maven Shade plugin creates a JAR containing the application and its dependencies, excluding those provided by the Flink runtime
+* **Java 17.** Managed Service for Apache Flink does not support Java 21.
+* `mvn package` builds `target/flink_logs_processor_2.3.0-1.0.jar` with the Maven Shade plugin.
+  Flink itself is `provided` (the cluster supplies it). `mvn compile exec:exec` still runs the job
+  locally, because the exec plugin uses the compile classpath, which includes `provided`. It forks a
+  JVM (`exec:exec`, not `exec:java`): Flink's JobMaster cannot load user classes through the
+  classloader `exec:java` sets up.
+* **Kinesis connector** `flink-connector-aws-kinesis-streams` 6.0.1-2.0 and **DynamoDB
+  connector** `flink-connector-dynamodb` 6.0.1-2.0. The older bundled `flink-connector-kinesis`
+  stops at Flink 1.20 and fails under Flink 2.x.
+* **`commons-lang` 2.6** is declared explicitly: `aws-kinesisanalytics-runtime` needs it when
+  reading the local properties file but does not declare it, and Flink 2.x no longer brings it
+  in transitively.
+* Running the shaded JAR with `java -jar` does not work: it deliberately contains no Flink runtime.

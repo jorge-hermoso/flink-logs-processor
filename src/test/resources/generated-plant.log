@@ -1,0 +1,419 @@
+{"ts":"2026-11-17T08:00:00.369Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.6 units/min, rejects 0.82 %, vacuum -60.5 kPa"}
+2026-11-17T08:00:00.452Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1523.5cP temp=64.6C agitator_rpm=118
+[2026-11-17 08:00:00,559] EXTRUDER-01 | INFO | melt pressure 140.8 bar, screw torque 80.5 Nm, barrel temp 220.2 C
+1794902400881|PRESS-02|I|cycle 1 done; peak_force=313.9kN cycle_time=4.26s hyd_press=181.5bar
+[2026-11-17 08:00:00,924] EXTRUDER-02 | INFO | melt pressure 143.0 bar, screw torque 81.3 Nm, barrel temp 221.2 C
+Nov 17 08:00:00 kiln-01 kilnd[421]: <info> zone temp reading 841.1C (setpoint 840.0C) o2=3.06% belt 1.2 m/min
+1794902400761|PRESS-01|I|cycle 1 done; peak_force=313.4kN cycle_time=4.28s hyd_press=182.3bar
+[2026-11-17 08:00:01,506] EXTRUDER-01 | INFO | melt pressure 140.5 bar, screw torque 80.7 Nm, barrel temp 220.2 C
+---- shift handover: line running, no open deviations ----
+08:00:01 hmi operator=afolabi action=ack_banner screen=overview
+[2026-11-17 08:00:02,020] EXTRUDER-02 | INFO | melt pressure 142.4 bar, screw torque 80.4 Nm, barrel temp 221.5 C
+2026-11-17T08:00:01.475Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1526.0cP temp=64.5C agitator_rpm=118
+2026-11-17T08:00:00Z INFO scada-gw heartbeat ok seq=2400
+1794902402206|PRESS-01|I|cycle 2 done; peak_force=313.0kN cycle_time=4.31s hyd_press=182.1bar
+08:00:02 hmi operator=afolabi action=ack_banner screen=overview
+2026-11-17 08:00:02 mes-bridge: synced 2 work orders in 90ms
+1794902402518|PRESS-02|I|cycle 2 done; peak_force=315.6kN cycle_time=4.27s hyd_press=181.5bar
+[2026-11-17 08:00:02,429] EXTRUDER-01 | INFO | melt pressure 141.5 bar, screw torque 80.4 Nm, barrel temp 220.0 C
+2026-11-17T08:00:02.534Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1526.6cP temp=64.4C agitator_rpm=119
+08:00:03 hmi operator=tnguyen action=ack_banner screen=overview
+{"ts":"2026-11-17T08:00:02.493Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.9 units/min, rejects 0.81 %, vacuum -60.3 kPa"}
+1794902404133|PRESS-02|I|cycle 3 done; peak_force=314.6kN cycle_time=4.24s hyd_press=182.2bar
+Nov 17 08:00:03 kiln-01 kilnd[421]: <info> zone temp reading 841.6C (setpoint 840.0C) o2=3.1% belt 1.2 m/min
+2026-11-17T08:00:04.393Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1518.3cP temp=64.4C agitator_rpm=118
+[2026-11-17 08:00:02,940] EXTRUDER-02 | INFO | melt pressure 142.2 bar, screw torque 80.7 Nm, barrel temp 221.7 C
+1794902403583|PRESS-01|I|cycle 3 done; peak_force=313.1kN cycle_time=4.32s hyd_press=182.4bar
+2026-11-17T08:00:03Z WARN historian write queue depth 347
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+2026-11-17T08:00:03.486Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1523.8cP temp=64.2C agitator_rpm=118
+[2026-11-17 08:00:03,963] EXTRUDER-02 | INFO | melt pressure 141.3 bar, screw torque 81.2 Nm, barrel temp 221.3 C
+[2026-11-17 08:00:03,521] EXTRUDER-01 | INFO | melt pressure 140.9 bar, screw torque 79.2 Nm, barrel temp 220.6 C
+{"ts":"2026-11-17T08:00:04.392Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.9 units/min, rejects 0.81 %, vacuum -60.6 kPa"}
+2026-11-17T08:00:04.393Z INFO  mixer-ctl MIXER-01 lid interlock closed
+1794902405203|PRESS-01|I|cycle 4 done; peak_force=314.1kN cycle_time=4.27s hyd_press=182.1bar
+[2026-11-17 08:00:05,553] EXTRUDER-01 | INFO | die head purge cycle finished
+[2026-11-17 08:00:05,061] EXTRUDER-02 | INFO | melt pressure 142.7 bar, screw torque 81.6 Nm, barrel temp 220.9 C
+[2026-11-17 08:00:04,567] EXTRUDER-01 | INFO | melt pressure 139.4 bar, screw torque 80.0 Nm, barrel temp 220.3 C
+2026-11-17T08:00:05.428Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1526.8cP temp=64.3C agitator_rpm=118
+{"ts":"2026-11-17T08:00:06.472Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.3 units/min, rejects 0.86 %, vacuum -61.1 kPa"}
+Nov 17 08:00:05 kiln-01 kilnd[421]: <info> zone temp reading 840.0C (setpoint 840.0C) o2=3.11% belt 1.2 m/min
+1794902405615|PRESS-02|I|cycle 4 done; peak_force=315.7kN cycle_time=4.25s hyd_press=181.6bar
+2026-11-17T08:00:06.337Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1528.1cP temp=64.4C agitator_rpm=117
+[2026-11-17 08:00:05,553] EXTRUDER-01 | INFO | melt pressure 140.1 bar, screw torque 79.9 Nm, barrel temp 220.9 C
+[2026-11-17 08:00:06,025] EXTRUDER-02 | INFO | melt pressure 143.1 bar, screw torque 81.7 Nm, barrel temp 221.2 C
+[2026-11-17 08:00:06,927] EXTRUDER-02 | INFO | melt pressure 142.8 bar, screw torque 81.2 Nm, barrel temp 221.8 C
+1794902406604|PRESS-01|I|cycle 5 done; peak_force=313.0kN cycle_time=4.24s hyd_press=182.2bar
+Nov 17 08:00:07 kiln-01 kilnd[421]: <info> zone temp reading 840.5C (setpoint 840.0C) o2=3.07% belt 1.21 m/min
+[2026-11-17 08:00:07,620] EXTRUDER-01 | INFO | melt pressure 139.1 bar, screw torque 79.3 Nm, barrel temp 220.1 C
+1794902407207|PRESS-02|I|cycle 5 done; peak_force=313.0kN cycle_time=4.28s hyd_press=181.2bar
+[2026-11-17 08:00:07,934] EXTRUDER-02 | INFO | melt pressure 142.8 bar, screw torque 80.8 Nm, barrel temp 221.4 C
+[2026-11-17 08:00:06,544] EXTRUDER-01 | INFO | melt pressure 139.3 bar, screw torque 80.3 Nm, barrel temp 221.1 C
+{"ts":"2026-11-17T08:00:08.645Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.2 units/min, rejects 0.89 %, vacuum -61.5 kPa"}
+2026-11-17T08:00:07.360Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1529.1cP temp=64.4C agitator_rpm=117
+[2026-11-17 08:00:08,565] EXTRUDER-01 | INFO | melt pressure 138.4 bar, screw torque 79.7 Nm, barrel temp 220.6 C
+[2026-11-17 08:00:09,003] EXTRUDER-02 | INFO | melt pressure 141.3 bar, screw torque 81.0 Nm, barrel temp 221.8 C
+1794902408170|PRESS-01|I|cycle 6 done; peak_force=314.7kN cycle_time=4.2s hyd_press=181.6bar
+---- shift handover: line running, no open deviations ----
+2026-11-17T08:00:08.363Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1526.2cP temp=64.9C agitator_rpm=118
+1794902408582|PRESS-02|I|cycle 6 done; peak_force=313.4kN cycle_time=4.26s hyd_press=181.4bar
+2026-11-17 08:00:09 mes-bridge: synced 16 work orders in 155ms
+2026-11-17T08:00:09.343Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1524.9cP temp=64.6C agitator_rpm=117
+[2026-11-17 08:00:09,974] EXTRUDER-02 | INFO | melt pressure 142.0 bar, screw torque 80.5 Nm, barrel temp 221.5 C
+Nov 17 08:00:09 kiln-01 kilnd[421]: <info> zone temp reading 840.8C (setpoint 840.0C) o2=3.05% belt 1.21 m/min
+1794902411096|PRESS-01|I|cycle 8 done; peak_force=313.0kN cycle_time=4.23s hyd_press=182.1bar
+2026-11-17T08:00:10.349Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1513.3cP temp=64.5C agitator_rpm=117
+1794902409681|PRESS-01|I|cycle 7 done; peak_force=312.6kN cycle_time=4.21s hyd_press=182.1bar
+[2026-11-17 08:00:09,656] EXTRUDER-01 | INFO | melt pressure 137.5 bar, screw torque 79.8 Nm, barrel temp 220.0 C
+{"ts":"2026-11-17T08:00:10.757Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.3 units/min, rejects 0.88 %, vacuum -60.8 kPa"}
+1794902410177|PRESS-02|I|cycle 7 done; peak_force=312.5kN cycle_time=4.24s hyd_press=180.6bar
+2026-11-17T08:00:11.257Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1507.7cP temp=64.7C agitator_rpm=117
+[2026-11-17 08:00:11,645] EXTRUDER-01 | INFO | melt pressure 139.6 bar, screw torque 79.6 Nm, barrel temp 220.0 C
+[2026-11-17 08:00:11,914] EXTRUDER-02 | INFO | melt pressure 142.5 bar, screw torque 79.9 Nm, barrel temp 220.7 C
+[2026-11-17 08:00:10,704] EXTRUDER-01 | INFO | melt pressure 138.8 bar, screw torque 79.8 Nm, barrel temp 220.0 C
+[2026-11-17 08:00:11,011] EXTRUDER-02 | INFO | melt pressure 143.0 bar, screw torque 80.1 Nm, barrel temp 221.3 C
+Nov 17 08:00:11 kiln-01 kilnd[421]: <info> zone temp reading 840.4C (setpoint 840.0C) o2=3.04% belt 1.22 m/min
+08:00:12 hmi operator=tnguyen action=ack_banner screen=overview
+1794902411561|PRESS-02|I|cycle 8 done; peak_force=312.2kN cycle_time=4.25s hyd_press=180.5bar
+1794902413175|PRESS-02|I|cycle 9 done; peak_force=311.7kN cycle_time=4.24s hyd_press=180.3bar
+2026-11-17T08:00:13.357Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1509.0cP temp=64.4C agitator_rpm=117
+1794902412496|PRESS-01|I|cycle 9 done; peak_force=312.6kN cycle_time=4.23s hyd_press=182.3bar
+[2026-11-17 08:00:13,003] EXTRUDER-02 | INFO | melt pressure 142.3 bar, screw torque 80.0 Nm, barrel temp 221.0 C
+2026-11-17T08:00:12.329Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1505.6cP temp=64.3C agitator_rpm=117
+{"ts":"2026-11-17T08:00:12.862Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.3 units/min, rejects 0.99 %, vacuum -60.6 kPa"}
+---- shift handover: line running, no open deviations ----
+08:00:13 hmi operator=afolabi action=ack_banner screen=overview
+[2026-11-17 08:00:12,639] EXTRUDER-01 | INFO | melt pressure 141.3 bar, screw torque 79.8 Nm, barrel temp 220.6 C
+[2026-11-17 08:00:14,023] EXTRUDER-02 | INFO | melt pressure 143.8 bar, screw torque 79.7 Nm, barrel temp 221.3 C
+Nov 17 08:00:13 kiln-01 kilnd[421]: <info> zone temp reading 841.8C (setpoint 840.0C) o2=3.13% belt 1.22 m/min
+[2026-11-17 08:00:14,537] EXTRUDER-01 | INFO | melt pressure 142.6 bar, screw torque 80.9 Nm, barrel temp 220.3 C
+[2026-11-17 08:00:14,950] EXTRUDER-02 | INFO | melt pressure 144.9 bar, screw torque 80.1 Nm, barrel temp 220.7 C
+[2026-11-17 08:00:13,554] EXTRUDER-01 | INFO | melt pressure 143.0 bar, screw torque 81.1 Nm, barrel temp 220.6 C
+2026-11-17 08:00:13 mes-bridge: synced 3 work orders in 555ms
+2026-11-17T08:00:14Z WARN historian write queue depth 3831
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+2026-11-17T08:00:14.437Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1519.7cP temp=64.3C agitator_rpm=117
+1794902414740|PRESS-02|I|cycle 10 done; peak_force=310.2kN cycle_time=4.25s hyd_press=180.5bar
+1794902414118|PRESS-01|I|cycle 10 done; peak_force=311.1kN cycle_time=4.24s hyd_press=182.0bar
+[2026-11-17 08:00:14,537] EXTRUDER-01 | INFO | pellet feeder speed adjusted by operator
+Nov 17 08:00:15 kiln-01 kilnd[421]: <info> zone temp reading 841.9C (setpoint 840.0C) o2=3.13% belt 1.21 m/min
+{"ts":"2026-11-17T08:00:14.851Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.1 units/min, rejects 1.02 %, vacuum -60.3 kPa"}
+1794902415550|PRESS-01|I|cycle 11 done; peak_force=309.1kN cycle_time=4.25s hyd_press=182.5bar
+[2026-11-17 08:00:16,429] EXTRUDER-01 | INFO | melt pressure 142.9 bar, screw torque 81.2 Nm, barrel temp 220.6 C
+2026-11-17T08:00:15.385Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1525.3cP temp=63.9C agitator_rpm=117
+1794902416385|PRESS-02|I|cycle 11 done; peak_force=308.7kN cycle_time=4.23s hyd_press=180.8bar
+{"ts":"2026-11-17T08:00:16.830Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 1.01 %, vacuum -60.4 kPa"}
+2026-11-17T08:00:15Z INFO scada-gw heartbeat ok seq=2415
+[2026-11-17 08:00:15,443] EXTRUDER-01 | INFO | melt pressure 144.0 bar, screw torque 80.5 Nm, barrel temp 220.4 C
+[2026-11-17 08:00:16,920] EXTRUDER-02 | INFO | melt pressure 144.6 bar, screw torque 79.9 Nm, barrel temp 220.4 C
+2026-11-17T08:00:16.321Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1533.4cP temp=63.9C agitator_rpm=117
+[2026-11-17 08:00:15,928] EXTRUDER-02 | INFO | melt pressure 145.5 bar, screw torque 79.8 Nm, barrel temp 220.6 C
+1794902417781|PRESS-02|I|cycle 12 done; peak_force=310.6kN cycle_time=4.23s hyd_press=181.3bar
+1794902417081|PRESS-01|I|cycle 12 done; peak_force=309.8kN cycle_time=4.22s hyd_press=182.5bar
+[2026-11-17 08:00:17,949] EXTRUDER-02 | INFO | melt pressure 144.7 bar, screw torque 80.1 Nm, barrel temp 220.5 C
+2026-11-17 08:00:16 mes-bridge: synced 37 work orders in 322ms
+Nov 17 08:00:17 kiln-01 kilnd[421]: <info> zone temp reading 841.2C (setpoint 840.0C) o2=3.07% belt 1.21 m/min
+[2026-11-17 08:00:18,476] EXTRUDER-01 | INFO | melt pressure 141.4 bar, screw torque 80.9 Nm, barrel temp 219.5 C
+2026-11-17T08:00:18.470Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1514.7cP temp=63.8C agitator_rpm=117
+[2026-11-17 08:00:17,491] EXTRUDER-01 | INFO | melt pressure 141.3 bar, screw torque 81.0 Nm, barrel temp 219.9 C
+{"ts":"2026-11-17T08:00:18.925Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.2 units/min, rejects 0.96 %, vacuum -60.2 kPa"}
+2026-11-17T08:00:17.387Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1524.1cP temp=63.6C agitator_rpm=117
+[2026-11-17 08:00:19,413] EXTRUDER-01 | INFO | melt pressure 142.3 bar, screw torque 81.4 Nm, barrel temp 219.7 C
+[2026-11-17 08:00:19,005] EXTRUDER-02 | INFO | melt pressure 145.9 bar, screw torque 80.1 Nm, barrel temp 220.2 C
+1794902420150|PRESS-01|I|cycle 14 done; peak_force=308.3kN cycle_time=4.24s hyd_press=182.4bar
+1794902418722|PRESS-01|I|cycle 13 done; peak_force=310.3kN cycle_time=4.21s hyd_press=181.6bar
+Nov 17 08:00:19 kiln-01 kilnd[421]: <info> zone temp reading 842.0C (setpoint 840.0C) o2=3.03% belt 1.21 m/min
+1794902419219|PRESS-02|I|cycle 13 done; peak_force=311.8kN cycle_time=4.24s hyd_press=181.5bar
+2026-11-17T08:00:19.407Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1513.0cP temp=63.7C agitator_rpm=118
+[2026-11-17 08:00:20,343] EXTRUDER-01 | INFO | melt pressure 143.3 bar, screw torque 81.6 Nm, barrel temp 219.5 C
+[2026-11-17 08:00:19,960] EXTRUDER-02 | INFO | melt pressure 144.9 bar, screw torque 79.0 Nm, barrel temp 220.4 C
+[2026-11-17 08:00:21,031] EXTRUDER-02 | INFO | melt pressure 144.4 bar, screw torque 79.0 Nm, barrel temp 220.3 C
+{"ts":"2026-11-17T08:00:20.918Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.2 units/min, rejects 0.94 %, vacuum -59.9 kPa"}
+1794902420680|PRESS-02|I|cycle 14 done; peak_force=311.3kN cycle_time=4.24s hyd_press=181.6bar
+2026-11-17T08:00:21.473Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1530.8cP temp=63.8C agitator_rpm=118
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> burner 4 flame-out, purge started
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> burner 9 flame-out, purge started
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> thermocouple TC-1 open circuit
+2026-11-17T08:00:20.481Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1513.6cP temp=63.6C agitator_rpm=117
+Nov 17 08:00:21 kiln-01 kilnd[421]: <info> zone temp reading 841.9C (setpoint 840.0C) o2=3.11% belt 1.21 m/min
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+1794902421663|PRESS-01|I|cycle 15 done; peak_force=307.2kN cycle_time=4.26s hyd_press=182.2bar
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> burner 7 flame-out, purge started
+1794902422243|PRESS-02|I|cycle 15 done; peak_force=311.3kN cycle_time=4.24s hyd_press=181.9bar
+[2026-11-17 08:00:21,258] EXTRUDER-01 | INFO | melt pressure 143.7 bar, screw torque 82.4 Nm, barrel temp 219.3 C
+[2026-11-17 08:00:22,009] EXTRUDER-02 | INFO | melt pressure 143.5 bar, screw torque 78.0 Nm, barrel temp 219.7 C
+[2026-11-17 08:00:22,303] EXTRUDER-01 | INFO | melt pressure 144.3 bar, screw torque 82.0 Nm, barrel temp 219.3 C
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> thermocouple TC-6 open circuit
+Nov 17 08:00:21 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+2026-11-17T08:00:23.591Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1516.4cP temp=63.8C agitator_rpm=118
+[2026-11-17 08:00:23,897] EXTRUDER-02 | INFO | melt pressure 143.8 bar, screw torque 79.2 Nm, barrel temp 219.8 C
+2026-11-17T08:00:22.509Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1530.2cP temp=63.6C agitator_rpm=118
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> thermocouple TC-6 open circuit
+2026-11-17T08:00:23Z INFO scada-gw heartbeat ok seq=2423
+[2026-11-17 08:00:23,230] EXTRUDER-01 | INFO | melt pressure 145.2 bar, screw torque 82.2 Nm, barrel temp 219.5 C
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+1794902423766|PRESS-02|I|cycle 16 done; peak_force=310.7kN cycle_time=4.25s hyd_press=182.9bar
+[2026-11-17 08:00:22,949] EXTRUDER-02 | INFO | melt pressure 143.0 bar, screw torque 78.5 Nm, barrel temp 220.0 C
+Nov 17 08:00:23 kiln-01 kilnd[421]: <info> zone temp reading 843.2C (setpoint 840.0C) o2=3.13% belt 1.21 m/min
+1794902423060|PRESS-01|I|cycle 16 done; peak_force=309.8kN cycle_time=4.25s hyd_press=181.9bar
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> thermocouple TC-2 open circuit
+{"ts":"2026-11-17T08:00:22.964Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.0 units/min, rejects 0.96 %, vacuum -59.8 kPa"}
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> thermocouple TC-7 open circuit
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> thermocouple TC-8 open circuit
+[2026-11-17 08:00:24,158] EXTRUDER-01 | INFO | melt pressure 144.9 bar, screw torque 81.8 Nm, barrel temp 218.8 C
+Nov 17 08:00:23 kiln-01 kilnd[421]: <err> thermocouple TC-7 open circuit
+1794902424524|PRESS-01|I|cycle 17 done; peak_force=309.5kN cycle_time=4.26s hyd_press=182.5bar
+[2026-11-17 08:00:24,158] EXTRUDER-01 | INFO | die head purge cycle finished
+2026-11-17 08:00:23 mes-bridge: synced 22 work orders in 552ms
+[2026-11-17 08:00:24,910] EXTRUDER-02 | INFO | melt pressure 143.2 bar, screw torque 79.0 Nm, barrel temp 219.7 C
+Nov 17 08:00:25 kiln-01 kilnd[421]: <err> burner 5 flame-out, purge started
+Nov 17 08:00:25 kiln-01 kilnd[421]: <err> burner 4 flame-out, purge started
+[2026-11-17 08:00:25,063] EXTRUDER-01 | INFO | melt pressure 144.3 bar, screw torque 82.3 Nm, barrel temp 218.3 C
+2026-11-17T08:00:25Z WARN historian write queue depth 3501
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+2026-11-17T08:00:25Z INFO scada-gw heartbeat ok seq=2425
+2026-11-17T08:00:24.591Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1516.1cP temp=64.0C agitator_rpm=118
+{"ts":"2026-11-17T08:00:24.777Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.5 units/min, rejects 0.98 %, vacuum -59.9 kPa"}
+[2026-11-17 08:00:26,047] EXTRUDER-01 | INFO | melt pressure 143.0 bar, screw torque 81.8 Nm, barrel temp 218.3 C
+1794902425316|PRESS-02|I|cycle 17 done; peak_force=310.8kN cycle_time=4.24s hyd_press=182.9bar
+[2026-11-17 08:00:26,006] EXTRUDER-02 | INFO | melt pressure 141.5 bar, screw torque 78.3 Nm, barrel temp 219.8 C
+Nov 17 08:00:25 kiln-01 kilnd[421]: <err> burner 5 flame-out, purge started
+Nov 17 08:00:25 kiln-01 kilnd[421]: <info> zone temp reading 842.2C (setpoint 840.0C) o2=3.14% belt 1.21 m/min
+Nov 17 08:00:25 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+Nov 17 08:00:25 kiln-01 kilnd[421]: <err> thermocouple TC-2 open circuit
+2026-11-17T08:00:26.560Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1509.2cP temp=64.1C agitator_rpm=117
+2026-11-17T08:00:25.532Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1522.4cP temp=64.3C agitator_rpm=118
+1794902425966|PRESS-01|I|cycle 18 done; peak_force=310.0kN cycle_time=4.27s hyd_press=182.2bar
+1794902426903|PRESS-02|I|cycle 18 done; peak_force=310.5kN cycle_time=4.25s hyd_press=182.4bar
+---- shift handover: line running, no open deviations ----
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> thermocouple TC-6 open circuit
+[2026-11-17 08:00:27,090] EXTRUDER-01 | INFO | melt pressure 143.3 bar, screw torque 80.8 Nm, barrel temp 218.2 C
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> burner 6 flame-out, purge started
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+{"ts":"2026-11-17T08:00:26.937Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.6 units/min, rejects 0.87 %, vacuum -60.0 kPa"}
+2026-11-17T08:00:27.654Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1516.2cP temp=64.1C agitator_rpm=116
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> thermocouple TC-2 open circuit
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> burner 7 flame-out, purge started
+2026-11-17T08:00:27.654Z INFO  mixer-ctl MIXER-01 batch=B28 additive dose complete hopper=7
+[2026-11-17 08:00:27,060] EXTRUDER-02 | INFO | melt pressure 141.9 bar, screw torque 78.8 Nm, barrel temp 219.8 C
+[2026-11-17 08:00:28,099] EXTRUDER-02 | INFO | melt pressure 142.2 bar, screw torque 79.5 Nm, barrel temp 220.2 C
+1794902427326|PRESS-01|I|cycle 19 done; peak_force=310.4kN cycle_time=4.26s hyd_press=182.4bar
+Nov 17 08:00:27 kiln-01 kilnd[421]: <info> zone temp reading 842.5C (setpoint 840.0C) o2=3.14% belt 1.21 m/min
+1794902428435|PRESS-02|I|cycle 19 done; peak_force=311.5kN cycle_time=4.25s hyd_press=182.3bar
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> thermocouple TC-5 open circuit
+Nov 17 08:00:27 kiln-01 kilnd[421]: <err> burner 9 flame-out, purge started
+2026-11-17T08:00:28.732Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1524.1cP temp=64.2C agitator_rpm=117
+[2026-11-17 08:00:28,066] EXTRUDER-01 | INFO | melt pressure 143.4 bar, screw torque 81.3 Nm, barrel temp 218.3 C
+[2026-11-17 08:00:29,165] EXTRUDER-01 | INFO | melt pressure 143.8 bar, screw torque 81.2 Nm, barrel temp 218.5 C
+{"ts":"2026-11-17T08:00:28.993Z","unit":"PACKER-01","lvl":"info","msg":"rate 41.8 units/min, rejects 0.92 %, vacuum -60.1 kPa"}
+Nov 17 08:00:29 kiln-01 kilnd[421]: <err> burner 1 flame-out, purge started
+08:00:30 hmi operator=tnguyen action=ack_banner screen=overview
+1794902428689|PRESS-01|I|cycle 20 done; peak_force=311.9kN cycle_time=4.28s hyd_press=183.3bar
+[2026-11-17 08:00:29,137] EXTRUDER-02 | INFO | melt pressure 143.2 bar, screw torque 80.0 Nm, barrel temp 219.8 C
+[2026-11-17 08:00:30,121] EXTRUDER-01 | INFO | melt pressure 145.1 bar, screw torque 82.1 Nm, barrel temp 218.5 C
+{"ts":"2026-11-17T08:00:30.809Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 0.9 %, vacuum -59.8 kPa"}
+Nov 17 08:00:29 kiln-01 kilnd[421]: <err> burner 8 flame-out, purge started
+Nov 17 08:00:29 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+Nov 17 08:00:29 kiln-01 kilnd[421]: <err> exhaust fan vibration trip
+2026-11-17T08:00:29.697Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1530.1cP temp=64.3C agitator_rpm=117
+Nov 17 08:00:29 kiln-01 kilnd[421]: <info> zone temp reading 841.4C (setpoint 840.0C) o2=3.18% belt 1.2 m/min
+[2026-11-17 08:00:31,133] EXTRUDER-02 | WARNING | heater band 7 duty cycle high
+1794902430000|PRESS-02|I|cycle 20 done; peak_force=312.1kN cycle_time=4.29s hyd_press=182.5bar
+[2026-11-17 08:00:31,072] EXTRUDER-01 | INFO | melt pressure 145.4 bar, screw torque 82.5 Nm, barrel temp 218.8 C
+2026-11-17T08:00:30.783Z WARN  mixer-ctl MIXER-01 slurry level low in hopper 4, refill requested
+[2026-11-17 08:00:30,179] EXTRUDER-02 | INFO | melt pressure 144.8 bar, screw torque 79.7 Nm, barrel temp 220.5 C
+2026-11-17T08:00:30.783Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1524.5cP temp=64.1C agitator_rpm=117
+1794902430268|PRESS-01|I|cycle 21 done; peak_force=313.7kN cycle_time=4.29s hyd_press=183.2bar
+1794902431564|PRESS-02|I|cycle 21 done; peak_force=310.1kN cycle_time=4.28s hyd_press=182.9bar
+[2026-11-17 08:00:31,133] EXTRUDER-02 | INFO | melt pressure 145.3 bar, screw torque 79.9 Nm, barrel temp 220.2 C
+1794902431707|PRESS-01|I|cycle 22 done; peak_force=312.6kN cycle_time=4.25s hyd_press=182.8bar
+Nov 17 08:00:31 kiln-01 kilnd[421]: <info> zone temp reading 842.2C (setpoint 840.0C) o2=3.11% belt 1.2 m/min
+[2026-11-17 08:00:32,002] EXTRUDER-01 | INFO | melt pressure 145.7 bar, screw torque 81.3 Nm, barrel temp 218.8 C
+[2026-11-17 08:00:32,034] EXTRUDER-02 | INFO | melt pressure 146.4 bar, screw torque 79.7 Nm, barrel temp 220.5 C
+1794902432971|PRESS-02|I|cycle 22 done; peak_force=311.8kN cycle_time=4.27s hyd_press=182.4bar
+2026-11-17T08:00:31.837Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1531.7cP temp=63.9C agitator_rpm=118
+{"ts":"2026-11-17T08:00:32.762Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 0.97 %, vacuum -60.2 kPa"}
+Nov 17 08:00:33 kiln-01 kilnd[421]: <info> zone temp reading 842.4C (setpoint 840.0C) o2=3.16% belt 1.2 m/min
+[2026-11-17 08:00:34,019] EXTRUDER-01 | INFO | melt pressure 144.7 bar, screw torque 81.5 Nm, barrel temp 219.2 C
+2026-11-17T08:00:32.885Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1538.4cP temp=63.9C agitator_rpm=118
+2026-11-17 08:00:32 mes-bridge: synced 37 work orders in 450ms
+1794902433258|PRESS-01|I|cycle 23 done; peak_force=313.6kN cycle_time=4.25s hyd_press=182.4bar
+[2026-11-17 08:00:33,941] EXTRUDER-02 | INFO | melt pressure 143.6 bar, screw torque 80.3 Nm, barrel temp 220.4 C
+[2026-11-17 08:00:33,038] EXTRUDER-01 | INFO | melt pressure 145.6 bar, screw torque 81.1 Nm, barrel temp 218.8 C
+[2026-11-17 08:00:33,013] EXTRUDER-02 | INFO | melt pressure 144.3 bar, screw torque 79.8 Nm, barrel temp 220.1 C
+1794902434402|PRESS-02|I|cycle 23 done; peak_force=312.0kN cycle_time=4.24s hyd_press=182.8bar
+---- shift handover: line running, no open deviations ----
+{"ts":"2026-11-17T08:00:34.904Z","unit":"PACKER-01","lvl":"warn","msg":"gripper 5 pick retry"}
+2026-11-17T08:00:33.909Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1537.9cP temp=64.1C agitator_rpm=118
+[2026-11-17 08:00:35,031] EXTRUDER-01 | INFO | melt pressure 146.4 bar, screw torque 81.8 Nm, barrel temp 218.9 C
+---- shift handover: line running, no open deviations ----
+Nov 17 08:00:35 kiln-01 kilnd[421]: <info> zone temp reading 841.9C (setpoint 840.0C) o2=3.13% belt 1.2 m/min
+1794902434740|PRESS-01|I|cycle 24 done; peak_force=313.3kN cycle_time=4.27s hyd_press=182.4bar
+[2026-11-17 08:00:34,896] EXTRUDER-02 | INFO | melt pressure 143.5 bar, screw torque 81.5 Nm, barrel temp 219.6 C
+2026-11-17T08:00:34.920Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1535.9cP temp=63.9C agitator_rpm=118
+2026-11-17T08:00:35.882Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1536.2cP temp=64.0C agitator_rpm=118
+{"ts":"2026-11-17T08:00:34.904Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.1 units/min, rejects 0.93 %, vacuum -60.5 kPa"}
+1794902435988|PRESS-02|I|die lubrication pulse
+1794902435988|PRESS-02|I|cycle 24 done; peak_force=312.2kN cycle_time=4.26s hyd_press=182.0bar
+[2026-11-17 08:00:36,878] EXTRUDER-02 | INFO | melt pressure 143.6 bar, screw torque 81.9 Nm, barrel temp 219.6 C
+2026-11-17T08:00:35Z WARN historian write queue depth 3125
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+1794902436257|PRESS-01|I|cycle 25 done; peak_force=310.6kN cycle_time=4.29s hyd_press=181.8bar
+2026-11-17T08:00:36.843Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1529.6cP temp=64.1C agitator_rpm=118
+[2026-11-17 08:00:35,967] EXTRUDER-02 | INFO | melt pressure 143.9 bar, screw torque 82.0 Nm, barrel temp 219.8 C
+[2026-11-17 08:00:36,027] EXTRUDER-01 | INFO | melt pressure 146.8 bar, screw torque 81.5 Nm, barrel temp 219.3 C
+2026-11-17 08:00:37 mes-bridge: synced 8 work orders in 836ms
+Nov 17 08:00:37 kiln-01 kilnd[421]: <info> zone temp reading 843.5C (setpoint 840.0C) o2=3.13% belt 1.2 m/min
+2026-11-17T08:00:36Z WARN historian write queue depth 4208
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+2026-11-17T08:00:37Z INFO scada-gw heartbeat ok seq=2437
+[2026-11-17 08:00:37,904] EXTRUDER-01 | INFO | melt pressure 146.4 bar, screw torque 80.7 Nm, barrel temp 219.4 C
+2026-11-17T08:00:37.892Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1524.5cP temp=64.2C agitator_rpm=117
+1794902437358|PRESS-02|I|cycle 25 done; peak_force=310.2kN cycle_time=4.27s hyd_press=183.0bar
+{"ts":"2026-11-17T08:00:36.730Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.2 units/min, rejects 0.92 %, vacuum -60.7 kPa"}
+[2026-11-17 08:00:37,897] EXTRUDER-02 | INFO | melt pressure 143.7 bar, screw torque 81.9 Nm, barrel temp 219.3 C
+[2026-11-17 08:00:36,941] EXTRUDER-01 | INFO | melt pressure 145.3 bar, screw torque 79.9 Nm, barrel temp 219.7 C
+{"ts":"2026-11-17T08:00:38.815Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.1 units/min, rejects 0.89 %, vacuum -60.4 kPa"}
+1794902437610|PRESS-01|I|cycle 26 done; peak_force=310.6kN cycle_time=4.27s hyd_press=181.0bar
+[2026-11-17 08:00:38,820] EXTRUDER-02 | INFO | melt pressure 143.7 bar, screw torque 82.5 Nm, barrel temp 220.6 C
+1794902438779|PRESS-02|I|cycle 26 done; peak_force=308.9kN cycle_time=4.24s hyd_press=182.8bar
+[2026-11-17 08:00:38,818] EXTRUDER-01 | INFO | melt pressure 146.8 bar, screw torque 81.5 Nm, barrel temp 219.4 C
+1794902439032|PRESS-01|I|cycle 27 done; peak_force=309.9kN cycle_time=4.28s hyd_press=181.1bar
+2026-11-17T08:00:38.951Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1521.3cP temp=64.3C agitator_rpm=117
+[2026-11-17 08:00:39,867] EXTRUDER-02 | INFO | melt pressure 142.6 bar, screw torque 81.8 Nm, barrel temp 220.3 C
+{"ts":"2026-11-17T08:00:40.857Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.5 units/min, rejects 0.82 %, vacuum -60.3 kPa"}
+Nov 17 08:00:39 kiln-01 kilnd[421]: <info> zone temp reading 843.7C (setpoint 840.0C) o2=3.11% belt 1.2 m/min
+2026-11-17T08:00:39.933Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1512.1cP temp=64.2C agitator_rpm=118
+[2026-11-17 08:00:40,889] EXTRUDER-01 | INFO | melt pressure 145.2 bar, screw torque 81.6 Nm, barrel temp 219.4 C
+1794902440453|PRESS-01|I|cycle 28 done; peak_force=310.0kN cycle_time=4.25s hyd_press=182.1bar
+1794902440258|PRESS-02|I|cycle 27 done; peak_force=309.0kN cycle_time=4.24s hyd_press=182.8bar
+[2026-11-17 08:00:39,906] EXTRUDER-01 | INFO | melt pressure 146.8 bar, screw torque 81.4 Nm, barrel temp 219.4 C
+2026-11-17T08:00:40.997Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1510.7cP temp=63.9C agitator_rpm=118
+1794902441810|PRESS-01|I|cycle 29 done; peak_force=311.5kN cycle_time=4.27s hyd_press=182.2bar
+Nov 17 08:00:41 kiln-01 kilnd[421]: <info> zone temp reading 844.0C (setpoint 840.0C) o2=3.14% belt 1.22 m/min
+1794902441720|PRESS-02|I|cycle 28 done; peak_force=309.8kN cycle_time=4.22s hyd_press=182.5bar
+[2026-11-17 08:00:41,831] EXTRUDER-01 | INFO | melt pressure 145.1 bar, screw torque 81.4 Nm, barrel temp 219.7 C
+[2026-11-17 08:00:40,851] EXTRUDER-02 | INFO | melt pressure 142.1 bar, screw torque 82.3 Nm, barrel temp 220.1 C
+[2026-11-17 08:00:42,821] EXTRUDER-01 | INFO | die head purge cycle finished
+2026-11-17T08:00:41.930Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1515.7cP temp=63.9C agitator_rpm=119
+08:00:41 hmi operator=afolabi action=ack_banner screen=overview
+[2026-11-17 08:00:42,847] EXTRUDER-02 | INFO | melt pressure 143.1 bar, screw torque 82.6 Nm, barrel temp 219.7 C
+[2026-11-17 08:00:41,945] EXTRUDER-02 | INFO | melt pressure 141.9 bar, screw torque 83.1 Nm, barrel temp 219.4 C
+2026-11-17T08:00:42.935Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1507.3cP temp=63.9C agitator_rpm=120
+{"ts":"2026-11-17T08:00:42.937Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.0 units/min, rejects 0.81 %, vacuum -60.0 kPa"}
+[2026-11-17 08:00:42,821] EXTRUDER-01 | INFO | melt pressure 144.6 bar, screw torque 80.6 Nm, barrel temp 220.0 C
+1794902443307|PRESS-02|I|cycle 29 done; peak_force=310.4kN cycle_time=4.21s hyd_press=182.6bar
+1794902443248|PRESS-01|I|cycle 30 done; peak_force=310.8kN cycle_time=4.27s hyd_press=182.1bar
+Nov 17 08:00:43 kiln-01 kilnd[421]: <info> zone temp reading 843.4C (setpoint 840.0C) o2=3.17% belt 1.2 m/min
+[2026-11-17 08:00:43,781] EXTRUDER-01 | INFO | melt pressure 144.4 bar, screw torque 80.4 Nm, barrel temp 220.4 C
+{"ts":"2026-11-17T08:00:44.884Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.1 units/min, rejects 0.78 %, vacuum -60.4 kPa"}
+2026-11-17T08:00:44.916Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1515.7cP temp=64.4C agitator_rpm=119
+2026-11-17T08:00:43.935Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1509.9cP temp=64.1C agitator_rpm=119
+1794902444769|PRESS-02|I|cycle 30 done; peak_force=310.5kN cycle_time=4.21s hyd_press=183.2bar
+  [2J
+[2026-11-17 08:00:44,863] EXTRUDER-02 | INFO | melt pressure 142.8 bar, screw torque 82.3 Nm, barrel temp 218.9 C
+Nov 17 08:00:45 kiln-01 kilnd[421]: <info> zone temp reading 843.4C (setpoint 840.0C) o2=3.19% belt 1.19 m/min
+1794902444616|PRESS-01|I|cycle 31 done; peak_force=314.0kN cycle_time=4.29s hyd_press=182.3bar
+[2026-11-17 08:00:45,778] EXTRUDER-02 | INFO | melt pressure 141.7 bar, screw torque 82.8 Nm, barrel temp 219.6 C
+1794902446120|PRESS-02|I|cycle 31 done; peak_force=311.4kN cycle_time=4.2s hyd_press=182.5bar
+[2026-11-17 08:00:44,741] EXTRUDER-01 | INFO | melt pressure 143.5 bar, screw torque 81.5 Nm, barrel temp 220.6 C
+08:00:44 hmi operator=afolabi action=ack_banner screen=overview
+2026-11-17T08:00:45.925Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1525.1cP temp=64.5C agitator_rpm=119
+[2026-11-17 08:00:45,766] EXTRUDER-01 | INFO | melt pressure 143.1 bar, screw torque 81.1 Nm, barrel temp 220.7 C
+[2026-11-17 08:00:46,795] EXTRUDER-02 | INFO | melt pressure 141.1 bar, screw torque 83.2 Nm, barrel temp 219.3 C
+1794902446212|PRESS-01|I|cycle 32 done; peak_force=312.9kN cycle_time=4.28s hyd_press=183.0bar
+2026-11-17T08:00:46.929Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1521.6cP temp=64.5C agitator_rpm=119
+Nov 17 08:00:47 kiln-01 kilnd[421]: <info> zone temp reading 843.1C (setpoint 840.0C) o2=3.17% belt 1.2 m/min
+1794902447639|PRESS-01|I|cycle 33 done; peak_force=311.2kN cycle_time=4.3s hyd_press=182.5bar
+1794902447569|PRESS-02|I|cycle 32 done; peak_force=311.1kN cycle_time=4.21s hyd_press=182.4bar
+[2026-11-17 08:00:46,852] EXTRUDER-01 | INFO | melt pressure 144.6 bar, screw torque 81.4 Nm, barrel temp 220.2 C
+{"ts":"2026-11-17T08:00:46.812Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.3 units/min, rejects 0.77 %, vacuum -60.5 kPa"}
+[2026-11-17 08:00:47,782] EXTRUDER-01 | INFO | melt pressure 144.4 bar, screw torque 81.6 Nm, barrel temp 219.9 C
+[2026-11-17 08:00:48,733] EXTRUDER-01 | INFO | melt pressure 145.3 bar, screw torque 81.8 Nm, barrel temp 220.9 C
+2026-11-17T08:00:48.880Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1533.4cP temp=64.0C agitator_rpm=118
+{"ts":"2026-11-17T08:00:48.653Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 0.84 %, vacuum -60.8 kPa"}
+[2026-11-17 08:00:47,890] EXTRUDER-02 | INFO | melt pressure 140.9 bar, screw torque 83.0 Nm, barrel temp 219.2 C
+2026-11-17T08:00:47.873Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1531.6cP temp=64.0C agitator_rpm=118
+2026-11-17T08:00:49.842Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1528.2cP temp=63.7C agitator_rpm=117
+[2026-11-17 08:00:48,978] EXTRUDER-02 | WARNING | heater band 3 duty cycle high
+1794902449196|PRESS-02|I|cycle 33 done; peak_force=312.6kN cycle_time=4.22s hyd_press=182.6bar
+[2026-11-17 08:00:48,978] EXTRUDER-02 | INFO | melt pressure 141.2 bar, screw torque 82.6 Nm, barrel temp 219.3 C
+1794902450696|PRESS-02|I|cycle 34 done; peak_force=311.5kN cycle_time=4.26s hyd_press=182.3bar
+Nov 17 08:00:49 kiln-01 kilnd[421]: <info> zone temp reading 843.6C (setpoint 840.0C) o2=3.22% belt 1.19 m/min
+1794902449247|PRESS-01|I|cycle 34 done; peak_force=312.7kN cycle_time=4.27s hyd_press=182.7bar
+1794902450743|PRESS-01|I|cycle 35 done; peak_force=312.7kN cycle_time=4.25s hyd_press=182.1bar
+[2026-11-17 08:00:50,909] EXTRUDER-01 | INFO | melt pressure 144.0 bar, screw torque 82.0 Nm, barrel temp 220.4 C
+2026-11-17T08:00:51Z WARN historian write queue depth 1884
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+[2026-11-17 08:00:49,821] EXTRUDER-01 | INFO | melt pressure 144.5 bar, screw torque 81.7 Nm, barrel temp 220.6 C
+[2026-11-17 08:00:50,074] EXTRUDER-02 | INFO | melt pressure 140.3 bar, screw torque 83.3 Nm, barrel temp 220.0 C
+---- shift handover: line running, no open deviations ----
+08:00:51 hmi operator=mkowalski action=ack_banner screen=overview
+{"ts":"2026-11-17T08:00:50.655Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.3 units/min, rejects 0.8 %, vacuum -61.2 kPa"}
+[2026-11-17 08:00:52,024] EXTRUDER-02 | INFO | melt pressure 141.5 bar, screw torque 83.1 Nm, barrel temp 220.2 C
+2026-11-17T08:00:50.846Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1523.5cP temp=63.9C agitator_rpm=117
+[2026-11-17 08:00:51,860] EXTRUDER-01 | INFO | melt pressure 145.8 bar, screw torque 82.5 Nm, barrel temp 220.5 C
+2026-11-17T08:00:51.796Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1517.8cP temp=64.0C agitator_rpm=116
+[2026-11-17 08:00:50,979] EXTRUDER-02 | INFO | melt pressure 140.4 bar, screw torque 83.1 Nm, barrel temp 220.3 C
+1794902452146|PRESS-02|I|cycle 35 done; peak_force=310.5kN cycle_time=4.22s hyd_press=182.1bar
+Nov 17 08:00:51 kiln-01 kilnd[421]: <info> zone temp reading 844.2C (setpoint 840.0C) o2=3.24% belt 1.2 m/min
+1794902452295|PRESS-01|I|cycle 36 done; peak_force=309.6kN cycle_time=4.25s hyd_press=182.0bar
+[2026-11-17 08:00:52,952] EXTRUDER-01 | INFO | melt pressure 144.8 bar, screw torque 82.3 Nm, barrel temp 220.2 C
+Nov 17 08:00:53 kiln-01 kilnd[421]: <info> zone temp reading 845.0C (setpoint 840.0C) o2=3.23% belt 1.19 m/min
+{"ts":"2026-11-17T08:00:52.456Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 0.84 %, vacuum -61.4 kPa"}
+1794902453608|PRESS-02|I|cycle 36 done; peak_force=311.0kN cycle_time=4.24s hyd_press=182.1bar
+2026-11-17T08:00:52.699Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1518.2cP temp=64.2C agitator_rpm=117
+1794902453750|PRESS-01|I|cycle 37 done; peak_force=310.4kN cycle_time=4.24s hyd_press=181.7bar
+2026-11-17T08:00:53.661Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1520.5cP temp=64.2C agitator_rpm=117
+2026-11-17T08:00:54.685Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1536.6cP temp=63.9C agitator_rpm=117
+[2026-11-17 08:00:53,113] EXTRUDER-02 | INFO | melt pressure 143.0 bar, screw torque 82.0 Nm, barrel temp 219.8 C
+{"ts":"2026-11-17T08:00:54.560Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.4 units/min, rejects 0.92 %, vacuum -61.0 kPa"}
+[2026-11-17 08:00:54,051] EXTRUDER-02 | INFO | melt pressure 144.9 bar, screw torque 82.3 Nm, barrel temp 220.3 C
+[2026-11-17 08:00:54,010] EXTRUDER-01 | INFO | melt pressure 143.6 bar, screw torque 82.1 Nm, barrel temp 219.8 C
+[2026-11-17 08:00:55,009] EXTRUDER-02 | INFO | melt pressure 143.9 bar, screw torque 82.2 Nm, barrel temp 219.8 C
+1794902455108|PRESS-02|I|cycle 37 done; peak_force=311.4kN cycle_time=4.27s hyd_press=182.2bar
+[2026-11-17 08:00:56,086] EXTRUDER-01 | INFO | melt pressure 143.1 bar, screw torque 82.4 Nm, barrel temp 218.9 C
+1794902455365|PRESS-01|I|cycle 38 done; peak_force=309.9kN cycle_time=4.26s hyd_press=181.5bar
+[2026-11-17 08:00:55,097] EXTRUDER-01 | INFO | melt pressure 143.1 bar, screw torque 81.1 Nm, barrel temp 219.2 C
+Nov 17 08:00:55 kiln-01 kilnd[421]: <info> zone temp reading 844.3C (setpoint 840.0C) o2=3.22% belt 1.2 m/min
+[2026-11-17 08:00:55,927] EXTRUDER-02 | INFO | melt pressure 143.7 bar, screw torque 82.5 Nm, barrel temp 220.0 C
+2026-11-17T08:00:55.688Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1548.1cP temp=64.1C agitator_rpm=116
+1794902456609|PRESS-02|I|cycle 38 done; peak_force=311.1kN cycle_time=4.27s hyd_press=181.2bar
+08:00:56 hmi operator=tnguyen action=ack_banner screen=overview
+{"ts":"2026-11-17T08:00:56.399Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.5 units/min, rejects 0.77 %, vacuum -61.1 kPa"}
+2026-11-17T08:00:56Z WARN historian write queue depth 564
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+1794902456802|PRESS-01|I|cycle 39 done; peak_force=310.4kN cycle_time=4.25s hyd_press=181.1bar
+[2026-11-17 08:00:56,896] EXTRUDER-02 | INFO | melt pressure 142.9 bar, screw torque 81.2 Nm, barrel temp 219.6 C
+2026-11-17T08:00:57.694Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1534.2cP temp=63.7C agitator_rpm=117
+2026-11-17T08:00:56.748Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1539.0cP temp=64.3C agitator_rpm=117
+Nov 17 08:00:57 kiln-01 kilnd[421]: <info> zone temp reading 843.9C (setpoint 840.0C) o2=3.23% belt 1.19 m/min
+[2026-11-17 08:00:56,999] EXTRUDER-01 | INFO | melt pressure 145.1 bar, screw torque 82.1 Nm, barrel temp 219.2 C
+08:00:58 hmi operator=afolabi action=ack_banner screen=overview
+1794902458234|PRESS-01|I|light curtain test passed
+{"ts":"2026-11-17T08:00:58.223Z","unit":"PACKER-01","lvl":"info","msg":"rate 42.5 units/min, rejects 0.78 %, vacuum -60.9 kPa"}
+[2026-11-17 08:00:58,804] EXTRUDER-02 | INFO | melt pressure 143.3 bar, screw torque 81.8 Nm, barrel temp 220.1 C
+2026-11-17T08:00:58.677Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1527.4cP temp=63.6C agitator_rpm=117
+[2026-11-17 08:00:58,006] EXTRUDER-01 | INFO | melt pressure 143.2 bar, screw torque 81.7 Nm, barrel temp 219.4 C
+2026-11-17T08:00:57Z WARN historian write queue depth 747
+    at com.zorblatt.historian.Writer.flush(Writer.java:214)
+    at com.zorblatt.historian.Writer.run(Writer.java:98)
+1794902458234|PRESS-01|I|cycle 40 done; peak_force=310.9kN cycle_time=4.26s hyd_press=180.9bar
+[2026-11-17 08:00:58,917] EXTRUDER-01 | INFO | melt pressure 143.1 bar, screw torque 82.2 Nm, barrel temp 219.0 C
+1794902458242|PRESS-02|I|cycle 39 done; peak_force=311.6kN cycle_time=4.25s hyd_press=181.6bar
+[2026-11-17 08:00:57,854] EXTRUDER-02 | INFO | melt pressure 143.1 bar, screw torque 80.7 Nm, barrel temp 219.2 C
+1794902459761|PRESS-02|I|cycle 40 done; peak_force=310.0kN cycle_time=4.24s hyd_press=181.4bar
+Nov 17 08:00:59 kiln-01 kilnd[421]: <info> zone temp reading 844.0C (setpoint 840.0C) o2=3.21% belt 1.2 m/min
+[2026-11-17 08:00:59,965] EXTRUDER-01 | INFO | melt pressure 143.1 bar, screw torque 82.3 Nm, barrel temp 219.6 C
+[2026-11-17 08:00:59,832] EXTRUDER-02 | INFO | melt pressure 142.5 bar, screw torque 81.6 Nm, barrel temp 219.8 C
+2026-11-17T08:00:59.723Z INFO  mixer-ctl MIXER-01 batch=B00000 visc=1532.4cP temp=64.2C agitator_rpm=118
+1794902459844|PRESS-01|I|cycle 41 done; peak_force=312.2kN cycle_time=4.25s hyd_press=181.1bar
+2026-11-17 08:00:59 mes-bridge: synced 19 work orders in 254ms

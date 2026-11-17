@@ -30,7 +30,8 @@ under the License.
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<flink.version>2.3.0</flink.version>
-		<target.java.version>21</target.java.version>
+		<!-- Amazon Managed Service for Apache Flink 2.x runs Java 17; Java 21 is NOT supported there. -->
+		<target.java.version>17</target.java.version>
 		<maven.compiler.source>${target.java.version}</maven.compiler.source>
 		<maven.compiler.target>${target.java.version}</maven.compiler.target>
 		<kda.runtime.version>1.2.0</kda.runtime.version>
@@ -38,6 +39,7 @@ under the License.
 		<randomcutforest.version>4.4.0</randomcutforest.version>
 		<lombok.verion>1.18.48</lombok.verion>
 		<log4j.version>2.26.1</log4j.version>
+		<junit.version>5.11.4</junit.version>
 	</properties>
 
 	<dependencies>
@@ -86,6 +88,12 @@ under the License.
 			<artifactId>randomcutforest-core</artifactId>
 			<version>${randomcutforest.version}</version>
 		</dependency>
+		<!-- ThresholdedRandomCutForest: built-in normalisation, adaptive thresholding, anomaly grade -->
+		<dependency>
+			<groupId>software.amazon.randomcutforest</groupId>
+			<artifactId>randomcutforest-parkservices</artifactId>
+			<version>${randomcutforest.version}</version>
+		</dependency>
 
 		<!-- Connectors and Formats -->
 		<dependency>
@@ -97,6 +105,11 @@ under the License.
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-connector-aws-kinesis-streams</artifactId>
+			<version>${aws.connector.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-connector-dynamodb</artifactId>
 			<version>${aws.connector.version}</version>
 		</dependency>
 		<dependency>
@@ -134,9 +147,30 @@ under the License.
 
 		<!-- test -->
 		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-test-utils-junit</artifactId>
 			<version>${flink.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Operator test harnesses (KeyedOneInputStreamOperatorTestHarness) -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-streaming-java</artifactId>
+			<version>${flink.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-runtime</artifactId>
+			<version>${flink.version}</version>
+			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -154,6 +188,12 @@ under the License.
 					<source>${target.java.version}</source>
 					<target>${target.java.version}</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
 			</plugin>
 
 			<!-- Exec Plugin: run the job locally with `mvn compile exec:exec`.

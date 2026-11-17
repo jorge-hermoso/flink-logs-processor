@@ -1,0 +1,17 @@
+# Local stand-ins for the AWS resources the job talks to. See docs/LOCAL_DEVELOPMENT.md.
+# LocalStack is pinned to a release that runs without an account or auth token.
+services:
+  localstack:
+    image: localstack/localstack:3.8.1
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      SERVICES: kinesis,dynamodb
+      AWS_DEFAULT_REGION: eu-west-1
+    volumes:
+      - ./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "awslocal dynamodb describe-table --table-name plant-scores >/dev/null 2>&1"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
